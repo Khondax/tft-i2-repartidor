@@ -5,7 +5,6 @@ TAREAS PENDIENTES
 
 - Login
 
-
 ~ HOME ~
 - Repartidor escanea el siguiente paquete a entregar
 - Tabs:

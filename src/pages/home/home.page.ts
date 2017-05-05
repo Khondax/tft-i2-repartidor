@@ -1,13 +1,20 @@
 import { Component } from '@angular/core';
-import { NavController } from 'ionic-angular';
+import { NavController, NavParams } from 'ionic-angular';
+
+import { OrderAssignedPage, DeliveryPage } from "../pages";
 
 @Component({
-  templateUrl: 'home.page.html'
+    templateUrl: 'home.page.html'
 })
+
 export class HomePage {
 
-  constructor(private navCtrl: NavController) {
-
-  }
+    deliverer: any;
+    orderAssignedTab = OrderAssignedPage;
+    deliveryTab = DeliveryPage;
+    
+    constructor(private nav: NavController, private navParams:  NavParams) {
+        this.deliverer = this.navParams.data;
+    }
 
 }

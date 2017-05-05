@@ -1,11 +1,12 @@
 <ion-header>
-  <ion-navbar>
-    <button ion-button menuToggle>
-      <ion-icon name="menu"></ion-icon>
-    </button>
-  </ion-navbar>
+    <ion-navbar>
+        <button ion-button menuToggle>
+            <ion-icon name="menu"></ion-icon>
+        </button>
+    </ion-navbar>
 </ion-header>
 
-<ion-content padding>
-
-</ion-content>
+<ion-tabs>
+    <ion-tab tabIcon="clipboard" tabTitle="Asignados" [root]="orderAssignedTab" [rootParams]="deliverer"></ion-tab>
+    <ion-tab tabIcon="navigate" tabTitle="En reparto" [root]="deliveryTab" [rootParams]="deliverer"></ion-tab>    
+</ion-tabs>

@@ -12,9 +12,15 @@ export class HomePage {
     deliverer: any;
     orderAssignedTab = OrderAssignedPage;
     deliveryTab = DeliveryPage;
-    
-    constructor(private nav: NavController, private navParams:  NavParams) {
+
+
+
+    constructor(private nav: NavController,
+                private navParams: NavParams) {
+
         this.deliverer = this.navParams.data;
+
     }
+
 
 }

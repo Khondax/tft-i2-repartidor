@@ -13,3 +13,6 @@ TAREAS PENDIENTES
 - * - Cada paquete tendrá un botón que mostrará el escáner para verificar que ese paquete es el correcto.
 - * - Tras el escaneo, se mostrará el panel para firmar y una vez que el cliente firme, el paquete se marca como entregado (con lo que ello conlleva).
 - Actualizar posición Lat-Lng (geolocalización)
+
+~ SCAN ~
+- El escaner debe usarse en dos situaciones (arriba mencionadas), sería ideal conseguir realizar ambas operaciones en una sola página

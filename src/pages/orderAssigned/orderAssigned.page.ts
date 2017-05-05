@@ -2,12 +2,12 @@ import { Component } from '@angular/core';
 import { NavController } from 'ionic-angular';
 
 @Component({
-  templateUrl: 'orderAssigned.page.html'
+    templateUrl: 'orderAssigned.page.html'
 })
 export class OrderAssignedPage {
+    
+    constructor(private nav: NavController) {
 
-  constructor(private navCtrl: NavController) {
-
-  }
+    }
 
 }

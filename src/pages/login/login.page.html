@@ -1,0 +1,38 @@
+<ion-header>
+    <ion-navbar>
+        <button ion-button menuToggle>
+            <ion-icon name="menu"></ion-icon>
+        </button>    
+        <ion-title>Login</ion-title>
+    </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+
+    <ion-grid>
+        <ion-row>
+            <ion-col col-12 col-sm-6 col-md-6 col-lg-4 col-xl-4 *ngFor="let deliveryMan of deliveryMen">
+
+                    <ion-card (click)="login($event, deliveryMan)">
+                        <ion-item>
+                            <ion-avatar item-left>
+                                <img src={{deliveryMan.imagen}}>
+                            </ion-avatar>
+                            <ion-card-header>
+                                {{deliveryMan.nombre}}
+                            </ion-card-header>
+                        </ion-item>
+
+                            <ion-card-content>
+                                <p>DNI: {{deliveryMan.dni}}</p>
+                                <p>Número de paquetes asignados: {{deliveryMan.numPedidos}}</p>
+                                <p>Coche asignado: {{deliveryMan.coche}}</p>
+                            </ion-card-content>
+                        
+                    </ion-card>
+
+            </ion-col>
+        </ion-row>
+    </ion-grid> 
+
+</ion-content>

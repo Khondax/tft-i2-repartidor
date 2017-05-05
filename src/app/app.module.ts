@@ -4,15 +4,17 @@ import { IonicApp, IonicErrorHandler, IonicModule } from 'ionic-angular';
 
 import { MyApp } from './app.component';
 
-import { HomePage, OrderAssignedPage, DeliveryPage, ScanPage } from "../pages/pages";
+import { LoginPage, HomePage, OrderAssignedPage, DeliveryPage, ScanPage } from "../pages/pages";
 
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { BarcodeScanner } from "@ionic-native/barcode-scanner";
 
 import { AgmCoreModule } from "@agm/core";
+import { Geolocation } from "@ionic-native/geolocation";
 
 import { AngularFireModule } from "angularfire2";
+
 
 export const firebaseConfig = {
     apiKey: "AIzaSyDka8ZQF6bzjPhVJMZFAf7d0BBztxP_spg",
@@ -26,6 +28,7 @@ export const firebaseConfig = {
 @NgModule({
   declarations: [
     MyApp,
+    LoginPage,
     HomePage,
     OrderAssignedPage,
     DeliveryPage,
@@ -42,12 +45,14 @@ export const firebaseConfig = {
   bootstrap: [IonicApp],
   entryComponents: [
     MyApp,
+    LoginPage,
     HomePage,
     OrderAssignedPage,
     DeliveryPage,
     ScanPage
   ],
   providers: [
+    Geolocation,
     BarcodeScanner,
     StatusBar,
     SplashScreen,

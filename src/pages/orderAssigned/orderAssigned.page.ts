@@ -15,6 +15,7 @@ export class OrderAssignedPage {
     deliverer: any;
 
     delivererData: any;
+    private position: any;
     private lat: any;
     private long: any;
 
@@ -23,18 +24,22 @@ export class OrderAssignedPage {
                 private geolocation: Geolocation,
                 private angularFire: AngularFire) {
 
-        this.deliverer = navParams.data;
+
+    }
+
+    ionViewDidLoad(){
+        this.deliverer = this.navParams.data;
 
         this.delivererData = this.angularFire.database.list('/repartidores')
 
-        var pos = geolocation.watchPosition({ maximumAge: 10000, enableHighAccuracy: true }).subscribe((data) => {
+        this.position = this.geolocation.watchPosition({ maximumAge: 10000, enableHighAccuracy: true }).subscribe((data) => {
             this.lat = data.coords.latitude;
             this.long = data.coords.longitude;
 
             this.delivererData.update(this.deliverer.$key, {latitud: this.lat, longitud: this.long, horaCapturaGPS: moment().format()});
 
         });
-
     }
+
 
 }

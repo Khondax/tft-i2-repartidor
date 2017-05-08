@@ -38,7 +38,7 @@ export const firebaseConfig = {
     BrowserModule,
     IonicModule.forRoot(MyApp),
     AgmCoreModule.forRoot({
-        apiKey: 'AIzaSyBXhy5nvQy6bLf9B-FCTqyOk78Py9L-b4U'
+        apiKey: 'AIzaSyCRZ1a2eZSr-se_9Qclwapy0_6qx1BJ-Pw'
     }),
     AngularFireModule.initializeApp(firebaseConfig)
   ],

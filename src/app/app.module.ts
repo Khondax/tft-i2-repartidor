@@ -4,7 +4,7 @@ import { IonicApp, IonicErrorHandler, IonicModule } from 'ionic-angular';
 
 import { MyApp } from './app.component';
 
-import { LoginPage, HomePage, OrderAssignedPage, DeliveryPage, ScanPage } from "../pages/pages";
+import { LoginPage, HomePage, OrderAssignedPage, DeliveryPage, ScanPage, MapPage } from "../pages/pages";
 
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
@@ -32,7 +32,8 @@ export const firebaseConfig = {
     HomePage,
     OrderAssignedPage,
     DeliveryPage,
-    ScanPage
+    ScanPage,
+    MapPage
   ],
   imports: [
     BrowserModule,
@@ -49,7 +50,8 @@ export const firebaseConfig = {
     HomePage,
     OrderAssignedPage,
     DeliveryPage,
-    ScanPage
+    ScanPage,
+    MapPage
   ],
   providers: [
     Geolocation,

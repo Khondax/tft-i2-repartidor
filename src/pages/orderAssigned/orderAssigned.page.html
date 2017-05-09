@@ -7,6 +7,56 @@
     </ion-navbar>
 </ion-header>
 
-<ion-content padding>
+<ion-content>
+
+    <ion-grid>
+        <ion-row >
+            <ng-container *ngFor="let deliverers of assignedOrders">
+                <ion-col col-sm-6 col-md-6 col-lg-4 col-xl-3 *ngIf="deliverers.length != 0">
+
+                    <ion-card>
+
+                        <ion-item-divider color="secondary">
+                            {{deliverers.codPos}}
+                        </ion-item-divider>
+                        
+                        <ion-list >
+                            <ion-item-group>
+
+                                <ion-item *ngFor="let order of deliverers.pedido">
+                                    <ion-row>
+                                        <ion-col col-10>
+                                            <h1>{{order.idPaquete}}</h1>
+                                            <h2>Teléfono: {{order.telf}}</h2>
+                                            <h3>Dirección: {{order.direccion}}</h3>
+                                            <h4>Peso: {{order.peso}}</h4>
+                                            <h4>Dimensiones: {{order.dimensiones}}</h4>
+                                            <p>Fech. Entrada: {{order.fechaEntradaAlmacen | date:'dd/MM/yy'}} - {{order.fechaEntradaAlmacen | date:'shortTime'}}</p>
+                                            
+                                        </ion-col>
+                                        <ion-col col-2>
+                                            <button ion-button icon-only outline (click)="goToMap($event, order)">
+                                                <ion-icon name="map"></ion-icon>
+                                            </button>
+                                            <br>
+                                            <button ion-button icon-only outline (click)="goToScan($event, order)">
+                                                <ion-icon name="barcode"></ion-icon>
+                                            </button>
+                                            <br>
+                                            <ion-icon *ngIf="order.urgente" name="alert"></ion-icon>
+                                        </ion-col>
+                                    </ion-row>
+                                </ion-item>
+
+                            </ion-item-group>
+                        </ion-list>
+
+                    </ion-card>
+
+                </ion-col>
+            </ng-container>
+            
+        </ion-row>
+    </ion-grid>
 
 </ion-content>

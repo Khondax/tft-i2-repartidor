@@ -8,8 +8,7 @@ TAREAS PENDIENTES
 ~ HOME ~
 - Repartidor escanea el siguiente paquete a entregar
 - Tabs:
-- * TAB1: Visualización de los paquetes asignados a él + botón para escanear paquetes.
-- * TAB2: Visualización de los paquetes seleccionados para entrega. 
+- * TAB2: 
 - * - Al pulsar sobre un paquete, los bordes se iluminarán de color verde para indicar que es el siguiente a entregar (al volver a pulsar se cancelará la siguiente entrega)
 - * - Cada paquete tendrá un botón que mostrará el escáner para verificar que ese paquete es el correcto.
 - * - Tras el escaneo, se mostrará el panel para firmar y una vez que el cliente firme, el paquete se marca como entregado (con lo que ello conlleva).

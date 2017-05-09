@@ -56,7 +56,7 @@ export class OrderAssignedPage {
             //TODO: Hay que mostrarlos por repartidor
             this.angularFire.database.list('/pedidos').subscribe(data => {
                 this.ordersData = _.chain(data)
-                                  .filter(o => o.estado === "En el almacén")
+                                  .filter(o => o.estado === "Asignado" && o.idRepartidor === this.deliverer.$key)
                                   .groupBy('codigoPostal')
                                   .toPairs()
                                   .map(item => _.zipObject(['codPos', 'pedido'], item))

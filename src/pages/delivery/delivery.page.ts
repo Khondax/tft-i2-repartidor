@@ -38,7 +38,7 @@ export class DeliveryPage {
         loader.present().then(() => {
             this.angularFire.database.list('/pedidos').subscribe(data => {
                 this.ordersData = _.chain(data)
-                                  .filter(o => o.estado === "En ruta" && o.idRepartidor === this.deliverer.$key)
+                                  .filter(o => o.estado === "En reparto" && o.idRepartidor === this.deliverer.$key)
                                   .groupBy('codigoPostal')
                                   .toPairs()
                                   .map(item => _.zipObject(['codPos', 'pedido'], item))

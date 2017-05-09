@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NavController, LoadingController, AlertController, ToastController } from 'ionic-angular';
+import { NavController, LoadingController, AlertController, ToastController, NavParams } from 'ionic-angular';
 
 import { BarcodeScanner } from "@ionic-native/barcode-scanner";
 
@@ -13,23 +13,32 @@ import moment from 'moment';
 
  export class ScanPage {
 
+    order: any;
     results: any;
-    string: any;
-    order: FirebaseListObservable<any>;
+    orderData: FirebaseListObservable<any>;
 
-
-    constructor(public barcodeScanner: BarcodeScanner,
-                public nav: NavController,
-                public angularFire: AngularFire,
-                public alertController: AlertController,
-                public toastController: ToastController){ 
+    constructor(private barcodeScanner: BarcodeScanner,
+                private nav: NavController,
+                private navParams: NavParams,
+                private angularFire: AngularFire,
+                private alertController: AlertController,
+                private toastController: ToastController){ 
                     
-        this.order = angularFire.database.list('/pedidos');
+        this.order = navParams.data;
+        this.orderData = angularFire.database.list('/pedidos');
     }
 
     scan(){
         this.barcodeScanner.scan().then((barcodeData) => {
-            this.results = barcodeData;
+            if (barcodeData.text === this.order.id){
+                this.results = barcodeData;
+            } else {
+                let toast = this.toastController.create({
+                    message: "El paquete escaneado no coincide con el que ha seleccionado para entregar",
+                    duration: 4000,
+                    position: 'middle'
+                });
+            }
         }, (err) => {
             alert(`Error al escanear: ${err}`);
         });
@@ -39,9 +48,24 @@ import moment from 'moment';
         this.results = null;
     }
 
-    save(){
+    save(num){
+
+        if (num == 0){
+            this.orderData.update(this.order.$key, {estado: "En reparto"});
+
+            let toast = this.toastController.create({
+                message: "El paquete se ha añadido a la lista de entregas",
+                duration: 2000,
+                position: 'bottom'
+            });
+
+            this.nav.pop();
+        } else if (num == 1){
+            //TODO: Permitir firma usuario (¿en una nueva página?)
+        }
+
         
-        this.string = this.results.text.split("#");
+
 
     }
 

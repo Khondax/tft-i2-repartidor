@@ -10,18 +10,8 @@
     <button ion-button full color="secondary" (click)="reset()">Borrar</button>
     
     <div *ngIf="results">
-        <br>
-        <h4>Destinatario: {{ results.text.split("#")[1] }}</h4>
-        <h4>DNI: {{ results.text.split("#")[4] }}</h4>
-        <h4>Teléfono: {{ results.text.split("#")[10] }}</h4>
-        <h4>Dirección: {{ results.text.split("#")[3] }}</h4>
-        <h4>Código postal: {{ results.text.split("#")[0] }}</h4>
-        <h4>Remitente: {{ results.text.split("#")[9] }}</h4>
-        <h4>Número de paquetes: {{ results.text.split("#")[7] }}</h4>
-        <h4>Dimensiones: {{ results.text.split("#")[2] }}</h4>
-        <h4>Peso: {{ results.text.split("#")[8] }}</h4>
-        
-        <button ion-button full (click)="save()">Guardar paquete</button>
+        <button *ngIf="order.estado=='Asignado'" ion-button full (click)="save(0)">Añadir paquete</button>
+        <button *ngIf="order.estado=='En reparto'" ion-button full (click)="save(1)">Entregar paquete</button>
     </div>
 
 </ion-content>

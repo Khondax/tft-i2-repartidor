@@ -53,7 +53,6 @@ export class OrderAssignedPage {
         });
 
         loader.present().then(() => {
-            //TODO: Hay que mostrarlos por repartidor
             this.angularFire.database.list('/pedidos').subscribe(data => {
                 this.ordersData = _.chain(data)
                                   .filter(o => o.estado === "Asignado" && o.idRepartidor === this.deliverer.$key)

@@ -30,7 +30,7 @@ import moment from 'moment';
 
     scan(){
         this.barcodeScanner.scan().then((barcodeData) => {
-            if (barcodeData.text === this.order.id){
+            if (barcodeData.text == this.order.idPaquete){
                 this.results = barcodeData;
             } else {
                 let toast = this.toastController.create({
@@ -38,6 +38,8 @@ import moment from 'moment';
                     duration: 4000,
                     position: 'middle'
                 });
+
+                toast.present();
             }
         }, (err) => {
             alert(`Error al escanear: ${err}`);
@@ -58,6 +60,8 @@ import moment from 'moment';
                 duration: 2000,
                 position: 'bottom'
             });
+
+            toast.present();
 
             this.nav.pop();
         } else if (num == 1){

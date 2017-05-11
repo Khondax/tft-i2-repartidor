@@ -3,7 +3,7 @@ Proyecto en ionic2 para el trabajo final del Grado en Ingeniería Informática -
 
 TAREAS PENDIENTES
 
-- Login
+- Login (darle formato)
 
 ~ HOME ~
 - Tabs:

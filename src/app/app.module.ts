@@ -6,6 +6,8 @@ import { MyApp } from './app.component';
 
 import { LoginPage, HomePage, OrderAssignedPage, DeliveryPage, ScanPage, MapPage } from "../pages/pages";
 
+import { AuthData } from '../providers/auth-data';
+
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { BarcodeScanner } from "@ionic-native/barcode-scanner";
@@ -13,7 +15,7 @@ import { BarcodeScanner } from "@ionic-native/barcode-scanner";
 import { AgmCoreModule } from "@agm/core";
 import { Geolocation } from "@ionic-native/geolocation";
 
-import { AngularFireModule } from "angularfire2";
+import { AngularFireModule, AuthProviders, AuthMethods } from "angularfire2";
 
 
 export const firebaseConfig = {
@@ -24,6 +26,11 @@ export const firebaseConfig = {
     storageBucket: "app-repartos-tft.appspot.com",
     messagingSenderId: "1059307361256"
 };
+
+const myFirebaseAuthConfig = {
+  provider: AuthProviders.Password,
+  method: AuthMethods.Password
+}
 
 @NgModule({
   declarations: [
@@ -41,7 +48,7 @@ export const firebaseConfig = {
     AgmCoreModule.forRoot({
         apiKey: 'AIzaSyCRZ1a2eZSr-se_9Qclwapy0_6qx1BJ-Pw'
     }),
-    AngularFireModule.initializeApp(firebaseConfig)
+    AngularFireModule.initializeApp(firebaseConfig, myFirebaseAuthConfig)
   ],
   bootstrap: [IonicApp],
   entryComponents: [
@@ -58,6 +65,7 @@ export const firebaseConfig = {
     BarcodeScanner,
     StatusBar,
     SplashScreen,
+    AuthData,
     {provide: ErrorHandler, useClass: IonicErrorHandler}
   ]
 })

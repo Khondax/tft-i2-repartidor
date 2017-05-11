@@ -5,6 +5,8 @@ import { SplashScreen } from '@ionic-native/splash-screen';
 
 import { HomePage, LoginPage } from "../pages/pages";
 
+import { AngularFire } from 'angularfire2';
+
 @Component({
   templateUrl: 'app.html'
 })
@@ -12,11 +14,22 @@ export class MyApp {
   @ViewChild(Nav) nav: Nav;
 
   //rootPage: any = HomePage;
-  rootPage: any = LoginPage;
+  rootPage: any;
 
   pages: Array<{title: string, component: any}>;
 
-  constructor(public platform: Platform, public statusBar: StatusBar, public splashScreen: SplashScreen) {
+  constructor(public platform: Platform, public statusBar: StatusBar, public splashScreen: SplashScreen, public angularFire: AngularFire) {
+    
+    const authObserver = angularFire.auth.subscribe( user => {
+      if (user) {
+        this.rootPage = HomePage;
+        authObserver.unsubscribe();
+      } else {
+        this.rootPage = LoginPage;
+        authObserver.unsubscribe();
+      }
+    });
+
     this.initializeApp();
 
   }

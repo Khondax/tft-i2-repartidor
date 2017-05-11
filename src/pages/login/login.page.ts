@@ -1,53 +1,56 @@
 import { Component } from '@angular/core';
-import { NavController, LoadingController, AlertController, ToastController } from 'ionic-angular';
-
-import { AngularFire } from "angularfire2";
-
-import _ from 'lodash';
-
+import { NavController, LoadingController, AlertController } from 'ionic-angular';
+import { FormBuilder, Validators } from '@angular/forms';
+import { AuthData } from '../../providers/auth-data';
 import { HomePage } from '../pages';
+import { EmailValidator } from '../../validators/email';
 
- @Component ({
-     templateUrl: 'login.page.html',
- })
-
+@Component({
+  templateUrl: 'login.page.html',
+  selector: 'login.page.scss'
+})
 export class LoginPage {
-     
-    deliveryMen = [];
-    private allMen: any;
-     
-    constructor(public nav: NavController,
-                public loadingController: LoadingController,
-                public toastController: ToastController,
-                public angularFire: AngularFire,
-                public alertController: AlertController,){
+
+  public loginForm: any;
+  public loading: any;
+
+  constructor(public navCtrl: NavController, public authData: AuthData, 
+    public formBuilder: FormBuilder, public alertCtrl: AlertController,
+    public loadingCtrl: LoadingController) {
+
+      this.loginForm = formBuilder.group({
+        email: ['', Validators.compose([Validators.required, EmailValidator.isValid])],
+        password: ['', Validators.compose([Validators.minLength(6), Validators.required])]
+      });
     }
 
-    ionViewDidLoad(){
-        let loader = this.loadingController.create({
-            content: 'Cargando...',
-            spinner: 'bubbles'
+    loginUser(){
+      if (!this.loginForm.valid){
+        console.log(this.loginForm.value);
+      } else {
+        this.authData.loginUser(this.loginForm.value.email, this.loginForm.value.password)
+        .then( authData => {
+          this.navCtrl.setRoot(HomePage);
+        }, error => {
+          this.loading.dismiss().then( () => {
+            let alert = this.alertCtrl.create({
+              message: error.message,
+              buttons: [
+                {
+                  text: "Ok",
+                  role: 'cancel'
+                }
+              ]
+            });
+            alert.present();
+          });
         });
 
-        loader.present().then(() => {
-            this.angularFire.database.list('/repartidores').subscribe(data => {
-                this.allMen =
-                    _.chain(data)
-                    .orderBy('nombre')
-                    .value();
-
-                this.deliveryMen = this.allMen;
-
-                loader.dismiss();
-            });
-        }); 
-    
-    }
-
-    login($event, deliverer){
-        this.nav.push(HomePage, deliverer);
-    }
-
-
+        this.loading = this.loadingCtrl.create({
+          dismissOnPageChange: true,
+        });
+        this.loading.present();
+      }
+  }
 
 }

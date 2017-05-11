@@ -1,38 +1,42 @@
 <ion-header>
-    <ion-navbar>
-        <button ion-button menuToggle>
-            <ion-icon name="menu"></ion-icon>
-        </button>    
-        <ion-title>Login</ion-title>
-    </ion-navbar>
+  <ion-navbar color="danger">
+    <ion-title>
+      Login
+    </ion-title>
+  </ion-navbar>
 </ion-header>
 
-<ion-content>
+<ion-content padding>
+  <form [formGroup]="loginForm" (submit)="loginUser()" novalidate>
 
-    <ion-grid>
-        <ion-row>
-            <ion-col col-12 col-sm-6 col-md-6 col-lg-4 col-xl-4 *ngFor="let deliveryMan of deliveryMen">
+    <ion-item>
+      <ion-label stacked>Email</ion-label>
+      <ion-input #email formControlName="email" type="email"
+        placeholder="Su dirección de correo"
+        [class.invalid]="!loginForm.controls.email.valid &&
+          loginForm.controls.email.dirty"></ion-input>
+    </ion-item>
+    <ion-item class="error-message" *ngIf="!loginForm.controls.email.valid  &&
+      loginForm.controls.email.dirty">
+      <p>Introduzca su email.</p>
+    </ion-item>
 
-                    <ion-card (click)="login($event, deliveryMan)">
-                        <ion-item>
-                            <ion-avatar item-left>
-                                <img src={{deliveryMan.imagen}}>
-                            </ion-avatar>
-                            <ion-card-header>
-                                {{deliveryMan.nombre}}
-                            </ion-card-header>
-                        </ion-item>
+    <ion-item>
+      <ion-label stacked>Contraseña</ion-label>
+      <ion-input #password formControlName="password" type="password"
+        placeholder="Contraseña"
+        [class.invalid]="!loginForm.controls.password.valid &&
+          loginForm.controls.password.dirty"></ion-input>
+    </ion-item>
+    <ion-item class="error-message" *ngIf="!loginForm.controls.password.valid  &&
+      loginForm.controls.password.dirty">
+      <p>Su contraseña necesita al menos 6 caracteres.</p>
+    </ion-item>
 
-                            <ion-card-content>
-                                <p>DNI: {{deliveryMan.dni}}</p>
-                                <p>Número de paquetes asignados: {{deliveryMan.numPedidos}}</p>
-                                <p>Coche asignado: {{deliveryMan.coche}}</p>
-                            </ion-card-content>
-                        
-                    </ion-card>
+    <button ion-button block type="submit">
+      Acceder
+    </button>
 
-            </ion-col>
-        </ion-row>
-    </ion-grid> 
+  </form>
 
 </ion-content>

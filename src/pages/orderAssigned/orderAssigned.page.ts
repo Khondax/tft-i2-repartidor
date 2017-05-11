@@ -5,6 +5,7 @@ import _ from 'lodash';
 import { AngularFire, FirebaseListObservable } from "angularfire2";
 import moment from "moment";
 import { Geolocation } from "@ionic-native/geolocation";
+import { AuthData } from '../../providers/auth-data';
 
 import { ScanPage, MapPage } from "../pages";
 
@@ -14,6 +15,7 @@ import { ScanPage, MapPage } from "../pages";
 export class OrderAssignedPage {
         
     deliverer: any;
+    deliveryMan: any;
 
     delivererData: any;
     private position: any;
@@ -29,13 +31,21 @@ export class OrderAssignedPage {
                 private navParams: NavParams,
                 private loadingController: LoadingController,
                 private geolocation: Geolocation,
-                private angularFire: AngularFire) {
+                private angularFire: AngularFire,
+                private authData: AuthData) {
 
 
     }
 
     ionViewDidLoad(){
-        this.deliverer = this.navParams.data;
+
+        this.angularFire.database.list('/repartidores').subscribe(data => {
+                this.deliveryMan = _.chain(data)
+                                  .filter(o => o.UID === this.authData.getCurrentUid())
+                                  .value();
+                this.deliverer = this.deliveryMan[0];
+                console.log(this.deliverer);
+        });
 
         this.delivererData = this.angularFire.database.list('/repartidores')
 

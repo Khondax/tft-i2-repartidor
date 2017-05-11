@@ -9,6 +9,8 @@ import { EmailValidator } from '../../validators/email';
   templateUrl: 'login.page.html',
   selector: 'login.page.scss'
 })
+
+
 export class LoginPage {
 
   public loginForm: any;
@@ -38,7 +40,7 @@ export class LoginPage {
               buttons: [
                 {
                   text: "Ok",
-                  role: 'cancel'
+                  role: 'Cancelar'
                 }
               ]
             });

@@ -1,18 +1,12 @@
-<ion-header>
-  <ion-navbar color="danger">
-    <ion-title>
-      Login
-    </ion-title>
-  </ion-navbar>
-</ion-header>
+<ion-content padding class="login-page">
 
-<ion-content padding>
+  <img src="assets/images/deliverer-icon.png">
+  
   <form [formGroup]="loginForm" (submit)="loginUser()" novalidate>
 
     <ion-item>
-      <ion-label stacked>Email</ion-label>
       <ion-input #email formControlName="email" type="email"
-        placeholder="Su dirección de correo"
+        placeholder="Correo electrónico"
         [class.invalid]="!loginForm.controls.email.valid &&
           loginForm.controls.email.dirty"></ion-input>
     </ion-item>
@@ -21,8 +15,7 @@
       <p>Introduzca su email.</p>
     </ion-item>
 
-    <ion-item>
-      <ion-label stacked>Contraseña</ion-label>
+    <ion-item> 
       <ion-input #password formControlName="password" type="password"
         placeholder="Contraseña"
         [class.invalid]="!loginForm.controls.password.valid &&
@@ -33,7 +26,7 @@
       <p>Su contraseña necesita al menos 6 caracteres.</p>
     </ion-item>
 
-    <button ion-button block type="submit">
+    <button ion-button class="login-button" block type="submit">
       Acceder
     </button>
 

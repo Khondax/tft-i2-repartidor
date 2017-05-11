@@ -40,7 +40,7 @@ export class LoginPage {
               buttons: [
                 {
                   text: "Ok",
-                  role: 'cancel'
+                  role: 'Cancelar'
                 }
               ]
             });

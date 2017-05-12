@@ -29,6 +29,18 @@ export class LoginPage {
     loginUser(){
       if (!this.loginForm.valid){
         console.log(this.loginForm.value);
+        if(this.loginForm.value.password.length < 6){
+          let alert = this.alertCtrl.create({
+              message: "La contraseña debe tener al menos 6 caracteres",
+              buttons: [
+                {
+                  text: "Ok",
+                  role: 'cancel'
+                }
+              ]
+            });
+            alert.present();
+        }
       } else {
         this.authData.loginUser(this.loginForm.value.email, this.loginForm.value.password)
         .then( authData => {
@@ -40,7 +52,7 @@ export class LoginPage {
               buttons: [
                 {
                   text: "Ok",
-                  role: 'Cancelar'
+                  role: 'cancel'
                 }
               ]
             });

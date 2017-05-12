@@ -5,28 +5,24 @@
   <form [formGroup]="loginForm" (submit)="loginUser()" novalidate>
 
     <ion-item>
-      <ion-input #email formControlName="email" type="email"
+      <ion-input formControlName="email" type="email"
         placeholder="Correo electrónico"
         [class.invalid]="!loginForm.controls.email.valid &&
+          loginForm.controls.email.dirty"
+        [class.valid]="loginForm.controls.email.valid &&
           loginForm.controls.email.dirty"></ion-input>
-    </ion-item>
-    <ion-item class="error-message" *ngIf="!loginForm.controls.email.valid  &&
-      loginForm.controls.email.dirty">
-      <p>Introduzca su email.</p>
     </ion-item>
 
     <ion-item> 
-      <ion-input #password formControlName="password" type="password"
+      <ion-input formControlName="password" type="password"
         placeholder="Contraseña"
         [class.invalid]="!loginForm.controls.password.valid &&
+          loginForm.controls.password.dirty"
+        [class.valid]="loginForm.controls.password.valid &&
           loginForm.controls.password.dirty"></ion-input>
     </ion-item>
-    <ion-item class="error-message" *ngIf="!loginForm.controls.password.valid  &&
-      loginForm.controls.password.dirty">
-      <p>Su contraseña necesita al menos 6 caracteres.</p>
-    </ion-item>
 
-    <button ion-button class="login-button" block type="submit">
+    <button ion-button class="login-button" type="submit">
       Acceder
     </button>
 

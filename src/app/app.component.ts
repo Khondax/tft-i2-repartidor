@@ -1,7 +1,9 @@
 import { Component, ViewChild } from '@angular/core';
-import { Nav, Platform } from 'ionic-angular';
+import { Nav, Platform, AlertController } from 'ionic-angular';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
+
+import { AuthData } from '../providers/auth-data';
 
 import { HomePage, LoginPage } from "../pages/pages";
 
@@ -18,19 +20,24 @@ export class MyApp {
 
   pages: Array<{title: string, component: any}>;
 
-  constructor(public platform: Platform, public statusBar: StatusBar, public splashScreen: SplashScreen, public angularFire: AngularFire) {
+  constructor(public platform: Platform, 
+              public statusBar: StatusBar, 
+              public splashScreen: SplashScreen, 
+              public angularFire: AngularFire, 
+              public authData: AuthData,
+              public alertCtrl: AlertController) {
     
-    const authObserver = angularFire.auth.subscribe( user => {
-      if (user) {
-        this.rootPage = HomePage;
-        authObserver.unsubscribe();
-      } else {
-        this.rootPage = LoginPage;
-        authObserver.unsubscribe();
-      }
-    });
+      const authObserver = angularFire.auth.subscribe( user => {
+        if (user) {
+          this.rootPage = HomePage;
+          authObserver.unsubscribe();
+        } else {
+          this.rootPage = LoginPage;
+          authObserver.unsubscribe();
+        }
+      });
 
-    this.initializeApp();
+      this.initializeApp();
 
   }
 
@@ -47,5 +54,27 @@ export class MyApp {
     // Reset the content nav to have just this page
     // we wouldn't want the back button to show in this scenario
     this.nav.setRoot(page.component);
+  }
+
+  logout(){
+
+    let alert = this.alertCtrl.create({
+              message: "¿Quieres cerrar sesión?",
+              buttons: [
+                {
+                  text: "No"
+                },
+                {
+                  text: 'Sí',
+                  handler: data =>{
+                    this.authData.logoutUser();
+                    this.nav.push(LoginPage);
+                  }
+                }
+              ]
+            });
+            alert.present();
+
+    
   }
 }

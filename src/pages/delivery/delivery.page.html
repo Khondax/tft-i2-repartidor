@@ -23,7 +23,7 @@
                         <ion-list >
                             <ion-item-group>
 
-                                <ion-item *ngFor="let order of deliverers.pedido">
+                                <ion-item *ngFor="let order of deliverers.pedido" (click)="nextDelivery(order)">
                                     <ion-row>
                                         <ion-col col-10>
                                             <h1>{{order.idPaquete}}</h1>

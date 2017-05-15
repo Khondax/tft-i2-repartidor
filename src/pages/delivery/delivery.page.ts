@@ -16,7 +16,9 @@ export class DeliveryPage {
     deliverer: any;
     deliveryMan: any;
 
-    private ordersData: any;
+    private orders: any;
+    ordersData: any;
+
     deliveryOrders = [];
     deliveryOrdersData: any;
 
@@ -45,16 +47,18 @@ export class DeliveryPage {
             spinner: 'bubbles'
         });
 
+        this.ordersData = this.angularFire.database.list('/pedidos')
+
         loader.present().then(() => {
             this.angularFire.database.list('/pedidos').subscribe(data => {
-                this.ordersData = _.chain(data)
-                                  .filter(o => o.estado === "En reparto" && o.idRepartidor === this.deliverer.$key)
+                this.orders = _.chain(data)
+                                  .filter(o => o.estado === "En reparto" && o.estado === "Siguiente en entrega" && o.idRepartidor === this.deliverer.$key)
                                   .groupBy('codigoPostal')
                                   .toPairs()
                                   .map(item => _.zipObject(['codPos', 'pedido'], item))
                                   .value();
 
-                this.deliveryOrdersData = _.chain(this.ordersData)
+                this.deliveryOrdersData = _.chain(this.orders)
                                           .orderBy('direccion')
                                           .value();
 
@@ -64,6 +68,14 @@ export class DeliveryPage {
             });
         });
 
+    }
+
+    nextDelivery(order){
+        if (order.estado === "En reparto"){
+            this.ordersData.update(order.$key, {estado: "Siguiente en entrega"});
+        } else if (order.estado === "Siguiente en entrega"){
+            this.ordersData.update(order.$key, {estado: "En reparto"});
+        }
     }
 
 }

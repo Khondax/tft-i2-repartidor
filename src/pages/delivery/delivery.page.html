@@ -7,7 +7,7 @@
     </ion-navbar>
 </ion-header>
 
-<ion-content>
+<ion-content class="delivery-page">
 
     <ion-grid>
         <ion-row >
@@ -24,20 +24,20 @@
                             <ion-item-group>
 
                                 <ion-item *ngFor="let order of deliverers.pedido" (click)="nextDelivery(order)">
-                                    <ion-row>
+                                    <ion-row [class.next-order]="order.estado == 'Siguiente en entrega'">
                                         <ion-col col-10>
                                             <h1>{{order.idPaquete}}</h1>
                                             <h2>Teléfono: {{order.telf}}</h2>
                                             <h3>Dirección: {{order.direccion}}</h3>
                                             <h4>Peso: {{order.peso}}</h4>
                                             <h4>Dimensiones: {{order.dimensiones}}</h4>
-                                            <p>Fech. Entrada: {{order.fechaEntradaAlmacen | date:'dd/MM/yy'}} - {{order.fechaEntradaAlmacen | date:'shortTime'}}</p>
-                                            
+                                            <p>Fech. Entrada: {{order.fechaEntradaAlmacen | date:'dd/MM/yy'}} - {{order.fechaEntradaAlmacen | date:'shortTime'}}</p>     
                                         </ion-col>
                                         <ion-col col-2>
                                             <ion-icon *ngIf="order.urgente" name="alert"></ion-icon>
                                         </ion-col>
                                     </ion-row>
+                                    
                                 </ion-item>
 
                             </ion-item-group>

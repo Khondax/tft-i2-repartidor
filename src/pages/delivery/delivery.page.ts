@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NavController, NavParams, LoadingController } from 'ionic-angular';
+import { NavController, NavParams, LoadingController, AlertController } from 'ionic-angular';
 
 import _ from 'lodash';
 import { AngularFire, FirebaseListObservable } from "angularfire2";
@@ -8,7 +8,8 @@ import moment from "moment";
 
 
 @Component({
-    templateUrl: 'delivery.page.html'
+    templateUrl: 'delivery.page.html',
+    selector: 'delivery.page.scss'
 })
 
 export class DeliveryPage {
@@ -27,7 +28,8 @@ export class DeliveryPage {
                 private navParams: NavParams,
                 private loadingController: LoadingController,
                 private angularFire: AngularFire,
-                private authData: AuthData) {
+                private authData: AuthData,
+                public alertControler: AlertController) {
 
 
     }
@@ -39,7 +41,6 @@ export class DeliveryPage {
                                   .filter(o => o.UID === this.authData.getCurrentUid())
                                   .value();
                 this.deliverer = this.deliveryMan[0];
-                console.log(this.deliverer);
         });
 
         let loader = this.loadingController.create({
@@ -52,7 +53,7 @@ export class DeliveryPage {
         loader.present().then(() => {
             this.angularFire.database.list('/pedidos').subscribe(data => {
                 this.orders = _.chain(data)
-                                  .filter(o => o.estado === "En reparto" && o.estado === "Siguiente en entrega" && o.idRepartidor === this.deliverer.$key)
+                                  .filter(o => o.estado === "En reparto" || o.estado === "Siguiente en entrega" && o.idRepartidor === this.deliverer.$key)
                                   .groupBy('codigoPostal')
                                   .toPairs()
                                   .map(item => _.zipObject(['codPos', 'pedido'], item))
@@ -63,6 +64,7 @@ export class DeliveryPage {
                                           .value();
 
                 this.deliveryOrders = this.deliveryOrdersData;
+                console.log(this.deliveryOrders[0].pedido[0].estado);
 
                 loader.dismiss();
             });
@@ -71,11 +73,34 @@ export class DeliveryPage {
     }
 
     nextDelivery(order){
-        if (order.estado === "En reparto"){
-            this.ordersData.update(order.$key, {estado: "Siguiente en entrega"});
-        } else if (order.estado === "Siguiente en entrega"){
-            this.ordersData.update(order.$key, {estado: "En reparto"});
-        }
+        var temp;
+        var nextDir;
+         var nextDirData = this.angularFire.database.list('/pedidos').subscribe(data => {
+                nextDir = _.chain(data)
+                                  .filter(o => o.estado === "Siguiente en entrega")
+                                  .value();
+                temp = nextDir;
+                console.log(temp);
+                if(temp.length == 0 || temp[0].direccion === order.direccion && order.estado === "En reparto"){
+                    this.ordersData.update(order.$key, {estado: "Siguiente en entrega"});
+                }else if(order.estado === "En reparto"){
+                    let alert = this.alertControler.create({
+                        message: "Ya existe un paquete seleccionado para la siguiente dirección de entrega. Si deseas cambiarlo, por favor deselecciona el otro paquete.",
+                        buttons: [
+                            {
+                            text: "Ok",
+                            role: 'cancel'
+                            }
+                        ]
+                    });
+                    alert.present();
+                }else{
+                    this.ordersData.update(order.$key, {estado: "En reparto"});
+                    
+                }
+                nextDirData.unsubscribe();
+        });
+        
     }
 
 }

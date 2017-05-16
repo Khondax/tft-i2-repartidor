@@ -11,3 +11,6 @@ TAREAS PENDIENTES
 - * - Configurar dirección de navegación de los pedidos (a ser posible, que indique la ruta)
 
 - Actualizar posición Lat-Lng (geolocalización) - (¿¿Conseguir que funcione con la app en segundo plano??)
+
+
+~ MEJORAS DE ESTILO ~

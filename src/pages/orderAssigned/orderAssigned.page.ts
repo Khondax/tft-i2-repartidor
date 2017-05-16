@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NavController, NavParams, LoadingController } from 'ionic-angular';
+import { NavController, LoadingController } from 'ionic-angular';
 
 import _ from 'lodash';
 import { AngularFire, FirebaseListObservable } from "angularfire2";
@@ -28,7 +28,6 @@ export class OrderAssignedPage {
 
 
     constructor(private nav: NavController,
-                private navParams: NavParams,
                 private loadingController: LoadingController,
                 private geolocation: Geolocation,
                 private angularFire: AngularFire,

@@ -2,10 +2,10 @@ import { Component } from '@angular/core';
 import { NavController, LoadingController, AlertController, ToastController, NavParams } from 'ionic-angular';
 
 import { BarcodeScanner } from "@ionic-native/barcode-scanner";
-
 import { AngularFire, FirebaseListObservable } from "angularfire2";
-
 import moment from 'moment';
+
+import { DrawpadPage } from "../pages";
 
  @Component ({
      templateUrl: 'scan.page.html',
@@ -66,6 +66,7 @@ import moment from 'moment';
             this.nav.pop();
         } else if (num == 1){
             //TODO: Permitir firma usuario (¿en una nueva página?)
+            this.nav.push(DrawpadPage);
         }
 
         

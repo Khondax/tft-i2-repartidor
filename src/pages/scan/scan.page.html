@@ -11,7 +11,11 @@
     
     <div *ngIf="results">
         <button *ngIf="order.estado=='Asignado'" ion-button full (click)="save(0)">Añadir paquete</button>
-        <button *ngIf="order.estado=='En reparto'" ion-button full (click)="save(1)">Entregar paquete</button>
+        <button *ngIf="order.estado=='Siguiente en entrega'" ion-button full (click)="save(1)">Entregar paquete</button>
+    </div>
+    <div *ngIf="signatureImage">
+        <img [src]="signatureImage"/>
+        <button ion-button full (click)="finishDeliver()">Finalizar</button>
     </div>
 
 </ion-content>

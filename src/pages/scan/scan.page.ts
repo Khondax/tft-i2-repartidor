@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NavController, LoadingController, AlertController, ToastController, NavParams } from 'ionic-angular';
+import { NavController, LoadingController, AlertController, ToastController, NavParams, ModalController } from 'ionic-angular';
 
 import { BarcodeScanner } from "@ionic-native/barcode-scanner";
 import { AngularFire, FirebaseListObservable } from "angularfire2";
@@ -17,14 +17,18 @@ import { DrawpadPage } from "../pages";
     results: any;
     orderData: FirebaseListObservable<any>;
 
+    signatureImage: any;
+
     constructor(private barcodeScanner: BarcodeScanner,
                 private nav: NavController,
                 private navParams: NavParams,
                 private angularFire: AngularFire,
                 private alertController: AlertController,
-                private toastController: ToastController){ 
+                private toastController: ToastController,
+                private modalController: ModalController){ 
                     
-        this.order = navParams.data;
+        this.order = navParams.get('data');
+        this.signatureImage = navParams.get('signatureImage');
         this.orderData = angularFire.database.list('/pedidos');
     }
 
@@ -62,16 +66,31 @@ import { DrawpadPage } from "../pages";
             });
 
             toast.present();
-
             this.nav.pop();
         } else if (num == 1){
-            //TODO: Permitir firma usuario (¿en una nueva página?)
-            this.nav.push(DrawpadPage);
+
+            setTimeout(() => {
+                let modal = this.modalController.create(DrawpadPage, this.order);
+                modal.present();
+            }, 300);
+
         }
 
-        
 
+    }
 
+    finishDeliver(){
+
+        //TODO: terminar el update, sincronizar con el admin...
+        this.orderData.update(this.order.$key, {});
+
+        let toast = this.toastController.create({
+            message: "Se supone que se ha entregado",
+            duration: 2000,
+            position: 'bottom'
+        });
+
+        toast.present();
     }
 
  }

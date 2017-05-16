@@ -17,6 +17,7 @@ import { Geolocation } from "@ionic-native/geolocation";
 
 import { AngularFireModule, AuthProviders, AuthMethods } from "angularfire2";
 
+import { SignaturePadModule } from "angular2-signaturepad";
 
 export const firebaseConfig = {
     apiKey: "AIzaSyDka8ZQF6bzjPhVJMZFAf7d0BBztxP_spg",
@@ -45,6 +46,7 @@ const myFirebaseAuthConfig = {
   ],
   imports: [
     BrowserModule,
+    SignaturePadModule,
     IonicModule.forRoot(MyApp),
     AgmCoreModule.forRoot({
         apiKey: 'AIzaSyCRZ1a2eZSr-se_9Qclwapy0_6qx1BJ-Pw'

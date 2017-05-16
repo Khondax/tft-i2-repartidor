@@ -6,6 +6,8 @@ import { AngularFire, FirebaseListObservable } from "angularfire2";
 import { AuthData } from '../../providers/auth-data';
 import moment from "moment";
 
+import { ScanPage, MapPage } from "../pages";
+
 
 @Component({
     templateUrl: 'delivery.page.html',
@@ -101,6 +103,14 @@ export class DeliveryPage {
                 nextDirData.unsubscribe();
         });
         
+    }
+
+    goToScan($event, order){
+        this.nav.push(ScanPage, {data: order});
+    }
+
+    goToMap($event, order){
+        this.nav.push(MapPage, order);
     }
 
 }

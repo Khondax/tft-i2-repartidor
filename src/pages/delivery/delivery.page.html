@@ -23,9 +23,9 @@
                         <ion-list >
                             <ion-item-group>
 
-                                <ion-item *ngFor="let order of deliverers.pedido" (click)="nextDelivery(order)">
+                                <ion-item *ngFor="let order of deliverers.pedido">
                                     <ion-row [class.next-order]="order.estado == 'Siguiente en entrega'">
-                                        <ion-col col-10>
+                                        <ion-col col-10 (click)="nextDelivery(order)">
                                             <h1>{{order.idPaquete}}</h1>
                                             <h2>Teléfono: {{order.telf}}</h2>
                                             <h3>Dirección: {{order.direccion}}</h3>
@@ -34,6 +34,14 @@
                                             <p>Fech. Entrada: {{order.fechaEntradaAlmacen | date:'dd/MM/yy'}} - {{order.fechaEntradaAlmacen | date:'shortTime'}}</p>     
                                         </ion-col>
                                         <ion-col col-2>
+                                            <button ion-button icon-only outline (click)="goToMap($event, order)">
+                                                <ion-icon name="map"></ion-icon>
+                                            </button>
+                                            <br>
+                                            <button ion-button icon-only outline (click)="goToScan($event, order)">
+                                                <ion-icon name="barcode"></ion-icon>
+                                            </button>
+                                            <br>
                                             <ion-icon *ngIf="order.urgente" name="alert"></ion-icon>
                                         </ion-col>
                                     </ion-row>

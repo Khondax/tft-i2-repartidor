@@ -83,7 +83,7 @@ export class OrderAssignedPage {
     }
 
     goToScan($event, order){
-        this.nav.push(ScanPage, order);
+        this.nav.push(ScanPage, {data: order});
     }
 
     goToMap($event, order){

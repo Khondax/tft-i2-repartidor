@@ -5,7 +5,7 @@ import { BarcodeScanner } from "@ionic-native/barcode-scanner";
 import { AngularFire, FirebaseListObservable } from "angularfire2";
 import moment from 'moment';
 
-import { DrawpadPage } from "../pages";
+import { DrawpadPage, HomePage } from "../pages";
 
  @Component ({
      templateUrl: 'scan.page.html',
@@ -81,16 +81,17 @@ import { DrawpadPage } from "../pages";
 
     finishDeliver(){
 
-        //TODO: terminar el update, sincronizar con el admin...
-        this.orderData.update(this.order.$key, {});
+        this.orderData.update(this.order.$key, {fechaEntrega: moment().format(), estado: "Entregado", firma: this.signatureImage});
 
         let toast = this.toastController.create({
-            message: "Se supone que se ha entregado",
+            message: "Pedido entregado",
             duration: 2000,
-            position: 'bottom'
+            position: 'middle'
         });
 
         toast.present();
+
+        this.nav.setRoot(HomePage);
     }
 
  }

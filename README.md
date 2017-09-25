@@ -6,11 +6,15 @@ TAREAS PENDIENTES
 ~ HOME ~
 - Tabs:
 - * TAB1:
-- * - Configurar dirección de navegación de los pedidos (a ser posible, que indique la ruta)
+- * - Configurar dirección de navegación de los pedidos (a ser posible, que indique la ruta) (FALTA TEST EN MOVIL)
 - * TAB2:
-- * - Configurar dirección de navegación de los pedidos (a ser posible, que indique la ruta)
+- * - Configurar dirección de navegación de los pedidos (a ser posible, que indique la ruta) (FALTA TEST EN MOVIL)
 
 - Actualizar posición Lat-Lng (geolocalización) - (¿¿Conseguir que funcione con la app en segundo plano??)
 
+
+~ MAPA ~
+
+- Construir el mapa y que sea posible indicar la mejor ruta de entrega de un pedido (FALTA TEST EN MOVIL)
 
 ~ MEJORAS DE ESTILO ~

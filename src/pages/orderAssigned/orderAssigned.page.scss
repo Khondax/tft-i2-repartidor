@@ -1,0 +1,11 @@
+.assignedMap-page {
+    width: 95%;
+    height: 300px !important;
+  }
+
+  #map {
+    width: 100%;
+    height: 100%;
+    //opacity: 0;
+    transition: opacity 150ms ease-in
+  }

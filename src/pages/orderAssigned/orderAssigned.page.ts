@@ -10,8 +10,10 @@ import { AuthData } from '../../providers/auth-data';
 import { ScanPage, MapPage } from "../pages";
 
 @Component({
-    templateUrl: 'orderAssigned.page.html'
+    templateUrl: 'orderAssigned.page.html',
+    selector: 'orderAssigned.page.scss'
 })
+
 export class OrderAssignedPage {
         
     deliverer: any;
@@ -26,6 +28,9 @@ export class OrderAssignedPage {
     assignedOrders = [];
     assignedOrdersData: any;
 
+    allOrders = [];
+
+    map: any = {};
 
     constructor(private nav: NavController,
                 private loadingController: LoadingController,
@@ -76,8 +81,19 @@ export class OrderAssignedPage {
 
                 this.assignedOrders = this.assignedOrdersData;
 
+                this.allOrders = _.chain(data)
+                                 .filter(a => (a.estado === "Asignado" || a.estado === "En reparto" || a.estado === "Siguiente en entrega") && a.idRepartidor === this.deliverer.$key)
+                                 .value();
+
                 loader.dismiss();
             });
+            
+            this.map = {
+                lat: 27.942246703329612,
+                lng: -15.598526000976562,
+                zoom: 9
+            };
+            
         });
 
     }
@@ -90,5 +106,16 @@ export class OrderAssignedPage {
         this.nav.push(MapPage, order);
     }
 
+    getCorrectColor(order){
+        switch (order.estado) {
+            case "Asignado":
+                return '../../assets/marker-icons/marker_blue.png';
+            case "En reparto":
+                return '../../assets/marker-icons/marker_green.png';
+            case "Siguiente en entrega":
+                return '../../assets/marker-icons/marker_red.png';
+        }
+    }
+    
 
 }

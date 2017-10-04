@@ -28,7 +28,9 @@ export class MapPage {
     }
 
     getDirection(){
-        window.location = `geo:${this.map.lat},${this.map.lng};u=35`;
+        let destination = this.map.lat + ',' + this.map.lng
+        let label = encodeURI('My label');
+        window.open ('geo:0,0?q=' + destination + '(' + label + ')', '_system');
     }
 
 }

@@ -13,7 +13,8 @@ import { SplashScreen } from '@ionic-native/splash-screen';
 import { BarcodeScanner } from "@ionic-native/barcode-scanner";
 
 import { AgmCoreModule } from "@agm/core";
-import { Geolocation } from "@ionic-native/geolocation";
+//import { Geolocation } from "@ionic-native/geolocation";
+import { BackgroundGeolocation } from "@ionic-native/background-geolocation";
 
 import { AngularFireModule, AuthProviders, AuthMethods } from "angularfire2";
 
@@ -65,7 +66,8 @@ const myFirebaseAuthConfig = {
     DrawpadPage
   ],
   providers: [
-    Geolocation,
+    //Geolocation,
+    BackgroundGeolocation,
     BarcodeScanner,
     StatusBar,
     SplashScreen,

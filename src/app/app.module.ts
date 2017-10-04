@@ -13,12 +13,13 @@ import { SplashScreen } from '@ionic-native/splash-screen';
 import { BarcodeScanner } from "@ionic-native/barcode-scanner";
 
 import { AgmCoreModule } from "@agm/core";
-//import { Geolocation } from "@ionic-native/geolocation";
+import { Geolocation } from "@ionic-native/geolocation";
 import { BackgroundGeolocation } from "@ionic-native/background-geolocation";
 
 import { AngularFireModule, AuthProviders, AuthMethods } from "angularfire2";
 
 import { SignaturePadModule } from "angular2-signaturepad";
+import { LocationTrackerProvider } from '../providers/location-tracker/location-tracker';
 
 export const firebaseConfig = {
     apiKey: "AIzaSyDka8ZQF6bzjPhVJMZFAf7d0BBztxP_spg",
@@ -66,13 +67,14 @@ const myFirebaseAuthConfig = {
     DrawpadPage
   ],
   providers: [
-    //Geolocation,
+    Geolocation,
+    LocationTrackerProvider,
     BackgroundGeolocation,
     BarcodeScanner,
     StatusBar,
     SplashScreen,
     AuthData,
-    {provide: ErrorHandler, useClass: IonicErrorHandler}
+    {provide: ErrorHandler, useClass: IonicErrorHandler},
   ]
 })
 export class AppModule {}

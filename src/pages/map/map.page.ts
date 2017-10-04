@@ -4,8 +4,10 @@ import { NavController, NavParams, LoadingController } from 'ionic-angular';
 declare var window: any;
 
 @Component({
-    templateUrl: 'map.page.html'
+    templateUrl: 'map.page.html',
+    selector: 'map.page.scss'
 })
+
 export class MapPage {
 
     map: any = {};
@@ -13,11 +15,7 @@ export class MapPage {
     constructor(private nav: NavController,
                 private navParams: NavParams,
                 private loadingController: LoadingController) {
-
-
-    }
-
-    ionViewDidLoad(){
+        
         let order = this.navParams.data;
 
         this.map = {
@@ -26,6 +24,7 @@ export class MapPage {
             zoom: 16,
             markerLabel: order.direccion
         };
+
     }
 
     getDirection(){

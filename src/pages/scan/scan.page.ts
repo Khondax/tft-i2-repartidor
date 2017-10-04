@@ -30,6 +30,11 @@ import { DrawpadPage, HomePage } from "../pages";
         this.order = navParams.get('data');
         this.signatureImage = navParams.get('signatureImage');
         this.orderData = angularFire.database.list('/pedidos');
+
+    }
+
+    ionViewDidLoad(){
+        this.scan();     
     }
 
     scan(){

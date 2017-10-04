@@ -1,13 +1,17 @@
 import { Component } from '@angular/core';
-import { NavController, LoadingController } from 'ionic-angular';
+import { NavController, LoadingController, ToastController } from 'ionic-angular';
 
 import _ from 'lodash';
 import { AngularFire, FirebaseListObservable } from "angularfire2";
 import moment from "moment";
+
 import { Geolocation } from "@ionic-native/geolocation";
+
 import { AuthData } from '../../providers/auth-data';
 
 import { ScanPage, MapPage } from "../pages";
+
+import { LocationTrackerProvider } from '../../providers/location-tracker/location-tracker';
 
 @Component({
     templateUrl: 'orderAssigned.page.html',
@@ -21,8 +25,8 @@ export class OrderAssignedPage {
 
     delivererData: any;
     private position: any;
-    private lat: any;
-    private long: any;
+    //private lat: any;
+    //private long: any; 
 
     private ordersData: any;
     assignedOrders = [];
@@ -36,8 +40,18 @@ export class OrderAssignedPage {
                 private loadingController: LoadingController,
                 private geolocation: Geolocation,
                 private angularFire: AngularFire,
-                private authData: AuthData) {
+                private authData: AuthData,
+                public locationTracker: LocationTrackerProvider,
+                public toastController: ToastController
+               ) {
 
+        this.map = {
+            lat: 27.942246703329612,
+            lng: -15.598526000976562,
+            zoom: 9,
+        };
+
+        this.locationTracker.startTracking();
 
     }
 
@@ -53,14 +67,16 @@ export class OrderAssignedPage {
 
         this.delivererData = this.angularFire.database.list('/repartidores')
 
-        this.position = this.geolocation.watchPosition({ maximumAge: 10000, enableHighAccuracy: true }).subscribe((data) => {
+
+/*         this.position = this.geolocation.watchPosition({ maximumAge: 10000, enableHighAccuracy: true }).subscribe((data) => {
             this.lat = data.coords.latitude;
             this.long = data.coords.longitude;
 
             this.delivererData.update(this.deliverer.$key, {latitud: this.lat, longitud: this.long, horaCapturaGPS: moment().format()});
 
-        });
+        }); */
 
+        
         let loader = this.loadingController.create({
             content: 'Obteniendo datos...',
             spinner: 'bubbles'
@@ -88,14 +104,24 @@ export class OrderAssignedPage {
                 loader.dismiss();
             });
             
-            this.map = {
-                lat: 27.942246703329612,
-                lng: -15.598526000976562,
-                zoom: 9
-            };
-            
         });
 
+        this.position = this.geolocation.watchPosition({ maximumAge: 10000, enableHighAccuracy: true }).subscribe((data) => {
+
+            this.delivererData.update(this.deliverer.$key, {latitud: data.coords.latitude, longitud: data.coords.longitude, horaCapturaGPS: moment().format()});
+
+        });
+
+         this.position = this.locationTracker.horaCaptura.subscribe((data) => {
+            console.log("DATOS: " + data);
+
+            this.delivererData.update(this.deliverer.$key, {latitud: this.locationTracker.lat, longitud: this.locationTracker.lng, horaCapturaGPS: this.locationTracker.horaCaptura});
+        });
+        
+    }
+
+    ionViewWillUnload(){
+        this.locationTracker.stopTracking();
     }
 
     goToScan($event, order){

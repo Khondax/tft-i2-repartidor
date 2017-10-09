@@ -21,6 +21,8 @@ import { AngularFireModule, AuthProviders, AuthMethods } from "angularfire2";
 import { SignaturePadModule } from "angular2-signaturepad";
 import { LocationTrackerProvider } from '../providers/location-tracker/location-tracker';
 
+import { GoogleMaps } from "@ionic-native/google-maps";
+
 export const firebaseConfig = {
     apiKey: "AIzaSyDka8ZQF6bzjPhVJMZFAf7d0BBztxP_spg",
     authDomain: "app-repartos-tft.firebaseapp.com",
@@ -70,6 +72,7 @@ const myFirebaseAuthConfig = {
     Geolocation,
     LocationTrackerProvider,
     BackgroundGeolocation,
+    GoogleMaps,
     BarcodeScanner,
     StatusBar,
     SplashScreen,

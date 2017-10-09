@@ -9,7 +9,7 @@
 
 <ion-content>
 
-    <ion-card class="assignedMap-page">
+    <!-- <ion-card class="assignedMap-page">
         <agm-map id="map" [latitude]="map.lat" [longitude]="map.lng" [zoom]="map.zoom">
             <ng-container *ngFor="let order of allOrders">
                 <agm-marker [latitude]="order.latitud" [longitude]="order.longitud" [iconUrl]="getCorrectColor(order)">
@@ -19,7 +19,9 @@
                 </agm-marker>
             </ng-container>
         </agm-map>
-    </ion-card>
+    </ion-card> -->
+
+    <div style="width:100%; height:50%" #map1 id="map1"></div>
 
     <ion-grid>
         <ion-row >

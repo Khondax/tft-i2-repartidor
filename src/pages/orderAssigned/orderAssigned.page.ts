@@ -13,6 +13,9 @@ import { ScanPage, MapPage } from "../pages";
 
 import { LocationTrackerProvider } from '../../providers/location-tracker/location-tracker';
 
+import { GoogleMaps, GoogleMap, GoogleMapOptions, GoogleMapsEvent, CameraPosition, MarkerOptions, Marker, MarkerCluster } from "@ionic-native/google-maps";
+
+
 @Component({
     templateUrl: 'orderAssigned.page.html',
     selector: 'orderAssigned.page.scss'
@@ -34,7 +37,12 @@ export class OrderAssignedPage {
 
     allOrders = [];
 
-    map: any = {};
+    //map: any = {};
+
+    map: GoogleMap;
+    mapElement: HTMLElement;
+
+    data = [];
 
     constructor(private nav: NavController,
                 private loadingController: LoadingController,
@@ -42,14 +50,14 @@ export class OrderAssignedPage {
                 private angularFire: AngularFire,
                 private authData: AuthData,
                 public locationTracker: LocationTrackerProvider,
-                public toastController: ToastController
+                private googleMaps: GoogleMaps
                ) {
 
-        this.map = {
+/*         this.map = {
             lat: 27.942246703329612,
             lng: -15.598526000976562,
             zoom: 9,
-        };
+        }; */
 
         this.locationTracker.startTracking();
 
@@ -68,13 +76,7 @@ export class OrderAssignedPage {
         this.delivererData = this.angularFire.database.list('/repartidores')
 
 
-/*         this.position = this.geolocation.watchPosition({ maximumAge: 10000, enableHighAccuracy: true }).subscribe((data) => {
-            this.lat = data.coords.latitude;
-            this.long = data.coords.longitude;
-
-            this.delivererData.update(this.deliverer.$key, {latitud: this.lat, longitud: this.long, horaCapturaGPS: moment().format()});
-
-        }); */
+        this.loadMap();
 
         
         let loader = this.loadingController.create({
@@ -118,6 +120,57 @@ export class OrderAssignedPage {
             this.delivererData.update(this.deliverer.$key, {latitud: this.locationTracker.lat, longitud: this.locationTracker.lng, horaCapturaGPS: this.locationTracker.horaCaptura});
         });
         
+    }
+
+    loadMap(){
+        this.mapElement = document.getElementById('map1');
+        
+        //let location = new LatLng(this.order.latitud, this.order.longitud);
+
+        let mapOptions: GoogleMapOptions = {
+            camera: {
+                target: {
+                    lat: 27.9422467,
+                    lng: -15.598526,
+                },
+                zoom: 9,
+                tilt: 10
+            }
+        };
+
+        this.map = this.googleMaps.create(this.mapElement, mapOptions);
+
+
+         this.map.one(GoogleMapsEvent.MAP_READY).then(() => {
+            console.log('Mapa listo!');
+
+
+/*             for (var order = 0; order < this.allOrders.length; order++) {
+                var data =+ {position: {lng: this.allOrders[order].longitud, lat: this.allOrders[order].latitud},
+                title: this.allOrders[order].direccion}
+            } */
+
+            
+            for(var order=0; order < this.allOrders.length; order++){
+                this.data[order]= {position: {lng: this.allOrders[order].longitud, lat: this.allOrders[order].latitud}, title: this.allOrders[order].direccion};
+            }
+            
+
+            /* for (var order = 0; order < this.allOrders.length; order++) {
+                this.map.addMarker({
+                    title: this.allOrders[order].direccion,
+                    icon: 'red',
+                    animation: 'DROP',
+                    position: {
+                        lat: this.allOrders[order].latitud,
+                        lng: this.allOrders[order].longitud
+                    }
+                });     
+            } */
+            
+    
+        });
+    
     }
 
     ionViewWillUnload(){

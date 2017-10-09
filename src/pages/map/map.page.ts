@@ -1,7 +1,11 @@
-import { Component } from '@angular/core';
-import { NavController, NavParams, LoadingController } from 'ionic-angular';
+import { Component, ViewChild, ElementRef } from '@angular/core';
+import { NavController, NavParams, LoadingController, Platform } from 'ionic-angular';
+
+import { GoogleMaps, GoogleMap, GoogleMapOptions, GoogleMapsEvent, CameraPosition, MarkerOptions, Marker, MarkerCluster } from "@ionic-native/google-maps";
 
 declare var window: any;
+
+//declare var google;
 
 @Component({
     templateUrl: 'map.page.html',
@@ -10,27 +14,92 @@ declare var window: any;
 
 export class MapPage {
 
-    map: any = {};
+    order: any;
+    //map: any = {};
+    map: GoogleMap;
+    mapElement: HTMLElement;
+
+    //@ViewChild('map') mapElement: ElementRef;
 
     constructor(private nav: NavController,
                 private navParams: NavParams,
-                private loadingController: LoadingController) {
-        
-        let order = this.navParams.data;
+                private loadingController: LoadingController,
+                private googleMaps: GoogleMaps,
+                private platform: Platform
+               ) {
+/*         platform.ready().then(() => {
+            this.loadMap();
+        });
+         */
+        this.order = this.navParams.data;
 
-        this.map = {
+/*         this.map = {
             lat: order.latitud,
             lng: order.longitud,
             zoom: 16,
             markerLabel: order.direccion
+        }; */
+
+    }
+
+    ionViewDidLoad(){
+        this.loadMap();
+    }
+
+    loadMap(){
+
+/*         let latLng = new google.maps.LatLng(this.order.latitud, this.order.longitud);
+        
+           let mapOptions = {
+             center: latLng,
+             zoom: 15,
+             mapTypeId: google.maps.MapTypeId.ROADMAP
+           }
+        
+           this.map = new google.maps.Map(this.mapElement.nativeElement, mapOptions); */
+
+
+        this.mapElement = document.getElementById('map2');
+
+        //let location = new LatLng(this.order.latitud, this.order.longitud);
+
+        let mapOptions: GoogleMapOptions = {
+            camera: {
+                target: {
+                  lat: this.order.latitud,
+                  lng: this.order.longitud
+                },
+                zoom: 15,
+                tilt: 10
+              }
         };
 
+        this.map = this.googleMaps.create(this.mapElement, mapOptions);
+
+
+        this.map.one(GoogleMapsEvent.MAP_READY)
+        .then(() => {
+          console.log('Mapa listo!');
+  
+          // Now you can use all methods safely.
+          this.map.addMarker({
+              title: this.order.direccion,
+              icon: 'red',
+              animation: 'DROP',
+              position: {
+                lat: this.order.latitud,
+                lng: this.order.longitud
+              }
+            });
+  
+        });
+
     }
 
-    getDirection(){
-        let destination = this.map.lat + ',' + this.map.lng
+/*     getDirection(){
+        let destination = this.order.latitud + ',' + this.order.longitud
         let label = encodeURI('My label');
         window.open ('geo:0,0?q=' + destination + '(' + label + ')', '_system');
-    }
+    } */
 
 }

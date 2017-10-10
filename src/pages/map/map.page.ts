@@ -16,7 +16,7 @@ export class MapPage {
 
     order: any;
     //map: any = {};
-    map: GoogleMap;
+    map2: GoogleMap;
     mapElement: HTMLElement;
 
     //@ViewChild('map') mapElement: ElementRef;
@@ -74,15 +74,15 @@ export class MapPage {
               }
         };
 
-        this.map = this.googleMaps.create(this.mapElement, mapOptions);
+        this.map2 = this.googleMaps.create(this.mapElement, mapOptions);
 
 
-        this.map.one(GoogleMapsEvent.MAP_READY)
+        this.map2.one(GoogleMapsEvent.MAP_READY)
         .then(() => {
           console.log('Mapa listo!');
   
           // Now you can use all methods safely.
-          this.map.addMarker({
+          this.map2.addMarker({
               title: this.order.direccion,
               icon: 'red',
               animation: 'DROP',

@@ -44,7 +44,7 @@
         <variable name="CONTENT_AUTHORITY" value="$PACKAGE_NAME" />
     </plugin>
     <allow-navigation href="http://192.168.1.101:8100" />
-    <plugin name="cordova-plugin-googlemaps" spec="~2.0.11">
+    <plugin name="cordova-plugin-googlemaps" spec="^2.0.11">
         <variable name="API_KEY_FOR_ANDROID" value="AIzaSyCRZ1a2eZSr-se_9Qclwapy0_6qx1BJ-Pw" />
     </plugin>
 </widget>

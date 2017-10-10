@@ -96,6 +96,10 @@ export class MapPage {
 
     }
 
+    ionViewDidLeave(){
+        this.map2.remove();
+    }
+
 /*     getDirection(){
         let destination = this.order.latitud + ',' + this.order.longitud
         let label = encodeURI('My label');

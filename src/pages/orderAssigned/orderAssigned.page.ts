@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NavController, LoadingController, ToastController } from 'ionic-angular';
+import { NavController, LoadingController } from 'ionic-angular';
 
 import _ from 'lodash';
 import { AngularFire, FirebaseListObservable } from "angularfire2";
@@ -13,8 +13,7 @@ import { ScanPage, MapPage } from "../pages";
 
 import { LocationTrackerProvider } from '../../providers/location-tracker/location-tracker';
 
-import { GoogleMaps, GoogleMap, GoogleMapOptions, GoogleMapsEvent, CameraPosition, MarkerOptions, Marker, MarkerCluster } from "@ionic-native/google-maps";
-
+import { GoogleMaps, GoogleMap, GoogleMapOptions, GoogleMapsEvent, CameraPosition, MarkerOptions, Marker, MarkerCluster, LatLng } from "@ionic-native/google-maps";
 
 @Component({
     templateUrl: 'orderAssigned.page.html',
@@ -39,10 +38,8 @@ export class OrderAssignedPage {
 
     //map: any = {};
 
-    map: GoogleMap;
+    map1: GoogleMap;
     mapElement: HTMLElement;
-
-    data = [];
 
     constructor(private nav: NavController,
                 private loadingController: LoadingController,
@@ -75,15 +72,11 @@ export class OrderAssignedPage {
 
         this.delivererData = this.angularFire.database.list('/repartidores')
 
-
-        this.loadMap();
-
-        
         let loader = this.loadingController.create({
             content: 'Obteniendo datos...',
             spinner: 'bubbles'
         });
-
+        
         loader.present().then(() => {
             this.angularFire.database.list('/pedidos').subscribe(data => {
                 this.ordersData = _.chain(data)
@@ -92,17 +85,19 @@ export class OrderAssignedPage {
                                   .toPairs()
                                   .map(item => _.zipObject(['codPos', 'pedido'], item))
                                   .value();
-
+                
                 this.assignedOrdersData = _.chain(this.ordersData)
                                           .orderBy('direccion')
                                           .value();
-
+                
                 this.assignedOrders = this.assignedOrdersData;
-
+                
                 this.allOrders = _.chain(data)
                                  .filter(a => (a.estado === "Asignado" || a.estado === "En reparto" || a.estado === "Siguiente en entrega") && a.idRepartidor === this.deliverer.$key)
                                  .value();
 
+                this.loadMap();
+            
                 loader.dismiss();
             });
             
@@ -138,39 +133,35 @@ export class OrderAssignedPage {
             }
         };
 
-        this.map = this.googleMaps.create(this.mapElement, mapOptions);
+        this.map1 = this.googleMaps.create(this.mapElement, mapOptions);
 
 
-         this.map.one(GoogleMapsEvent.MAP_READY).then(() => {
+         this.map1.one(GoogleMapsEvent.MAP_READY).then(() => {
             console.log('Mapa listo!');
 
-
-/*             for (var order = 0; order < this.allOrders.length; order++) {
-                var data =+ {position: {lng: this.allOrders[order].longitud, lat: this.allOrders[order].latitud},
-                title: this.allOrders[order].direccion}
-            } */
-
-            
-            for(var order=0; order < this.allOrders.length; order++){
-                this.data[order]= {position: {lng: this.allOrders[order].longitud, lat: this.allOrders[order].latitud}, title: this.allOrders[order].direccion};
-            }
-            
-
-            /* for (var order = 0; order < this.allOrders.length; order++) {
-                this.map.addMarker({
-                    title: this.allOrders[order].direccion,
-                    icon: 'red',
-                    animation: 'DROP',
-                    position: {
-                        lat: this.allOrders[order].latitud,
-                        lng: this.allOrders[order].longitud
-                    }
-                });     
-            } */
-            
+             this.map1.addMarkerCluster({
+                boundsDraw: true,
+                markers: this.addMarkers(),
+                icons: [
+                    {min: 2, max: 5, url: 'assets/marks/m1.png', anchor: {x: 16, y: 16}},
+                    {min: 5, max: 10, url: 'assets/marks/m2.png', anchor: {x: 16, y: 16}},
+                    {min: 10, max: 20, url: 'assets/marks/m3.png', anchor: {x: 24, y: 24}},
+                ]
+            });
     
         });
     
+    }
+
+    addMarkers(){
+        
+        var data = [];
+
+        for(var i=0; i < this.allOrders.length; i++){
+            data[i]= {position: {lng: this.allOrders[i].longitud, lat: this.allOrders[i].latitud}, title: this.allOrders[i].direccion};
+        }
+
+        return data;
     }
 
     ionViewWillUnload(){
@@ -185,7 +176,7 @@ export class OrderAssignedPage {
         this.nav.push(MapPage, order);
     }
 
-    getCorrectColor(order){
+     getCorrectColor(order){
         switch (order.estado) {
             case "Asignado":
                 return '../../assets/marker-icons/marker_blue.png';

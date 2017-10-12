@@ -27,16 +27,12 @@ export class OrderAssignedPage {
 
     delivererData: any;
     private position: any;
-    //private lat: any;
-    //private long: any; 
 
     private ordersData: any;
     assignedOrders = [];
     assignedOrdersData: any;
 
     allOrders = [];
-
-    //map: any = {};
 
     map1: GoogleMap;
     mapElement: HTMLElement;
@@ -49,12 +45,6 @@ export class OrderAssignedPage {
                 public locationTracker: LocationTrackerProvider,
                 private googleMaps: GoogleMaps
                ) {
-
-/*         this.map = {
-            lat: 27.942246703329612,
-            lng: -15.598526000976562,
-            zoom: 9,
-        }; */
 
         this.locationTracker.startTracking();
 
@@ -96,7 +86,7 @@ export class OrderAssignedPage {
                                  .filter(a => (a.estado === "Asignado" || a.estado === "En reparto" || a.estado === "Siguiente en entrega") && a.idRepartidor === this.deliverer.$key)
                                  .value();
 
-                this.loadMap();
+                //this.loadMap();
             
                 loader.dismiss();
             });
@@ -120,8 +110,6 @@ export class OrderAssignedPage {
     loadMap(){
         this.mapElement = document.getElementById('map1');
         
-        //let location = new LatLng(this.order.latitud, this.order.longitud);
-
         let mapOptions: GoogleMapOptions = {
             camera: {
                 target: {

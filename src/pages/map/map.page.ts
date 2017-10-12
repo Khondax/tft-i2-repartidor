@@ -27,18 +27,9 @@ export class MapPage {
                 private googleMaps: GoogleMaps,
                 private platform: Platform
                ) {
-/*         platform.ready().then(() => {
-            this.loadMap();
-        });
-         */
+
         this.order = this.navParams.data;
 
-/*         this.map = {
-            lat: order.latitud,
-            lng: order.longitud,
-            zoom: 16,
-            markerLabel: order.direccion
-        }; */
 
     }
 
@@ -48,20 +39,7 @@ export class MapPage {
 
     loadMap(){
 
-/*         let latLng = new google.maps.LatLng(this.order.latitud, this.order.longitud);
-        
-           let mapOptions = {
-             center: latLng,
-             zoom: 15,
-             mapTypeId: google.maps.MapTypeId.ROADMAP
-           }
-        
-           this.map = new google.maps.Map(this.mapElement.nativeElement, mapOptions); */
-
-
         this.mapElement = document.getElementById('map2');
-
-        //let location = new LatLng(this.order.latitud, this.order.longitud);
 
         let mapOptions: GoogleMapOptions = {
             camera: {

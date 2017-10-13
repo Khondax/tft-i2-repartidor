@@ -5,8 +5,6 @@ import { GoogleMaps, GoogleMap, GoogleMapOptions, GoogleMapsEvent, CameraPositio
 
 declare var window: any;
 
-//declare var google;
-
 @Component({
     templateUrl: 'map.page.html',
     selector: 'map.page.scss'

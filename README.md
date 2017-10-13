@@ -11,4 +11,6 @@ TAREAS PENDIENTES
 
 - Añadir notificaciones cada vez que sea asignado un nuevo pedido al repartidor.
 
+- Permitir llamadas a números de clientes desde el dispositivo.
+
 ~ MEJORAS DE ESTILO ~

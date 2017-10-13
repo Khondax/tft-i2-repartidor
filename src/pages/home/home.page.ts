@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NavController, NavParams } from 'ionic-angular';
+import { NavController, NavParams, MenuController } from 'ionic-angular';
 
 import { AngularFire, FirebaseListObservable } from "angularfire2";
 import _ from 'lodash';
@@ -16,8 +16,10 @@ export class HomePage {
     orderAssignedTab = OrderAssignedPage;
     deliveryTab = DeliveryPage;
 
-    constructor(private nav: NavController, private angularFire: AngularFire) {
+    constructor(private nav: NavController, private angularFire: AngularFire, public menuController: MenuController) {
 
+        this.menuController.enable(true);
+        
     }
 
 

@@ -4,13 +4,15 @@
             <ion-icon name="menu"></ion-icon>
         </button>
         <ion-title>Pedidos asignados</ion-title>
+        <ion-buttons end>
+            <button ion-button icon-only (click)="goToCluster()">
+                <ion-icon name="locate"></ion-icon>
+            </button>
+        </ion-buttons>
     </ion-navbar>
 </ion-header>
 
 <ion-content>
-
-    <div style="width:100%; height:50%" #map1 id="map1"></div>
-
     <ion-grid>
         <ion-row >
             <ng-container *ngFor="let deliverers of assignedOrders">

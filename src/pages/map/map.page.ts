@@ -14,12 +14,9 @@ declare var window: any;
 
 export class MapPage {
 
-    order: any;
-    //map: any = {};
+    data = [];
     map2: GoogleMap;
     mapElement: HTMLElement;
-
-    //@ViewChild('map') mapElement: ElementRef;
 
     constructor(private nav: NavController,
                 private navParams: NavParams,
@@ -28,8 +25,7 @@ export class MapPage {
                 private platform: Platform
                ) {
 
-        this.order = this.navParams.data;
-
+        this.data = this.navParams.data;
 
     }
 
@@ -41,47 +37,71 @@ export class MapPage {
 
         this.mapElement = document.getElementById('map2');
 
-        let mapOptions: GoogleMapOptions = {
-            camera: {
-                target: {
-                  lat: this.order.latitud,
-                  lng: this.order.longitud
-                },
-                zoom: 15,
-                tilt: 10
-              }
-        };
+        if (this.data.length <= 1){
+            var mapOptions: GoogleMapOptions = {
+                camera: {
+                    target: {
+                      lat: this.data[0].position.lat,
+                      lng: this.data[0].position.lng
+                    },
+                    zoom: 15,
+                    tilt: 10
+                  }
+            };
 
-        this.map2 = this.googleMaps.create(this.mapElement, mapOptions);
-
-
-        this.map2.one(GoogleMapsEvent.MAP_READY)
-        .then(() => {
-          console.log('Mapa listo!');
-  
-          // Now you can use all methods safely.
-          this.map2.addMarker({
-              title: this.order.direccion,
-              icon: 'red',
-              animation: 'DROP',
-              position: {
-                lat: this.order.latitud,
-                lng: this.order.longitud
-              }
+            this.map2 = this.googleMaps.create(this.mapElement, mapOptions);
+            
+            this.map2.one(GoogleMapsEvent.MAP_READY).then(() => {
+                console.log('Mapa listo!');
+        
+                this.map2.addMarker({
+                    title: this.data[0].title,
+                    icon: 'red',
+                    animation: 'DROP',
+                    position: {
+                    lat: this.data[0].position.lat,
+                    lng: this.data[0].position.lng
+                    }
+                });
+        
             });
-  
-        });
+
+        } else {
+            var mapOptions: GoogleMapOptions = {
+                camera: {
+                    target: {
+                      lat: 27.9422467,
+                      lng: -15.598526
+                    },
+                    zoom: 10,
+                    tilt: 10
+                  }
+            };
+
+            this.map2 = this.googleMaps.create(this.mapElement, mapOptions);
+            
+            this.map2.one(GoogleMapsEvent.MAP_READY).then(() => {
+                console.log('Mapa listo!');
+                
+                this.map2.addMarkerCluster({
+                    boundsDraw: true,
+                    markers: this.data,
+                    icons: [
+                        {min: 2, max: 5, url: 'assets/marks/m1.png', anchor: {x: 16, y: 16}},
+                        {min: 5, max: 10, url: 'assets/marks/m2.png', anchor: {x: 16, y: 16}},
+                        {min: 10, max: 20, url: 'assets/marks/m3.png', anchor: {x: 24, y: 24}},
+                        {min: 20, url: 'assets/marks/m4.png', anchor: {x: 24, y: 24}}
+                    ]
+                
+                });
+        
+            });
+        }
 
     }
 
     ionViewDidLeave(){
         this.map2.remove();
     }
-
-/*     getDirection(){
-        let destination = this.order.latitud + ',' + this.order.longitud
-        let label = encodeURI('My label');
-        window.open ('geo:0,0?q=' + destination + '(' + label + ')', '_system');
-    } */
 
 }

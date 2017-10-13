@@ -23,6 +23,8 @@ import { LocationTrackerProvider } from '../providers/location-tracker/location-
 
 import { GoogleMaps } from "@ionic-native/google-maps";
 
+import { CallNumber } from "@ionic-native/call-number";
+
 export const firebaseConfig = {
     apiKey: "AIzaSyDka8ZQF6bzjPhVJMZFAf7d0BBztxP_spg",
     authDomain: "app-repartos-tft.firebaseapp.com",
@@ -73,6 +75,7 @@ const myFirebaseAuthConfig = {
     LocationTrackerProvider,
     BackgroundGeolocation,
     GoogleMaps,
+    CallNumber,
     BarcodeScanner,
     StatusBar,
     SplashScreen,

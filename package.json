@@ -21,6 +21,7 @@
         "@angular/platform-browser-dynamic": "^4.4.3",
         "@ionic-native/background-geolocation": "^4.3.0",
         "@ionic-native/barcode-scanner": "^3.7.0",
+        "@ionic-native/call-number": "^4.3.1",
         "@ionic-native/core": "^3.6.1",
         "@ionic-native/geolocation": "^3.6.1",
         "@ionic-native/google-maps": "^4.3.1",
@@ -30,6 +31,7 @@
         "@types/google-maps": "^3.2.0",
         "angular2-signaturepad": "^2.4.0",
         "angularfire2": "^2.0.0-beta.8",
+        "call-number": "^1.0.1",
         "cordova-android": "~6.1.2",
         "cordova-plugin-console": "1.0.5",
         "cordova-plugin-device": "1.1.4",
@@ -49,7 +51,8 @@
         "phonegap-plugin-barcodescanner": "~6.0.6",
         "rxjs": "^5.4.3",
         "sw-toolbox": "3.4.0",
-        "zone.js": "^0.8.17"
+        "zone.js": "^0.8.17",
+        "mx.ferreyra.callnumber": "~0.0.2"
     },
     "devDependencies": {
         "@ionic/app-scripts": "^3.0.0",
@@ -87,7 +90,8 @@
             "phonegap-plugin-barcodescanner": {},
             "cordova-plugin-googlemaps": {
                 "API_KEY_FOR_ANDROID": "AIzaSyCRZ1a2eZSr-se_9Qclwapy0_6qx1BJ-Pw"
-            }
+            },
+            "mx.ferreyra.callnumber": {}
         }
     }
 }

@@ -47,4 +47,5 @@
     <plugin name="cordova-plugin-googlemaps" spec="^2.0.11">
         <variable name="API_KEY_FOR_ANDROID" value="AIzaSyCRZ1a2eZSr-se_9Qclwapy0_6qx1BJ-Pw" />
     </plugin>
+    <plugin name="mx.ferreyra.callnumber" spec="~0.0.2" />
 </widget>

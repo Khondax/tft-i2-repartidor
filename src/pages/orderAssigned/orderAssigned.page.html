@@ -30,7 +30,7 @@
                                 <ion-item *ngFor="let order of deliverers.pedido">
                                     <ion-row>
                                         <ion-col col-10>
-                                            <h1>{{order.idPaquete}}</h1>
+                                            <h1><ion-icon *ngIf="order.urgente" name="alert"></ion-icon> {{order.idPaquete}}</h1>
                                             <h2>Teléfono: {{order.telf}}</h2>
                                             <h3>Dirección: {{order.direccion}}</h3>
                                             <h4>Peso: {{order.peso}}</h4>
@@ -43,11 +43,13 @@
                                                 <ion-icon name="map"></ion-icon>
                                             </button>
                                             <br>
-                                            <button ion-button icon-only outline (click)="goToScan($event, order)">
-                                                <ion-icon name="barcode"></ion-icon>
+                                            <button ion-button icon-only outline (click)="goToPhone($event, order)">
+                                                <ion-icon name="call"></ion-icon>
                                             </button>
                                             <br>
-                                            <ion-icon *ngIf="order.urgente" name="alert"></ion-icon>
+                                            <button ion-button icon-only outline (click)="goToScan($event, order)">
+                                                <ion-icon name="barcode"></ion-icon>
+                                            </button>     
                                         </ion-col>
                                     </ion-row>
                                 </ion-item>

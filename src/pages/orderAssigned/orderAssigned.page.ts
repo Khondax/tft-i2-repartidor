@@ -13,6 +13,8 @@ import { ScanPage, MapPage } from "../pages";
 
 import { LocationTrackerProvider } from '../../providers/location-tracker/location-tracker';
 
+import { CallNumber } from "@ionic-native/call-number";
+
 @Component({
     templateUrl: 'orderAssigned.page.html',
     selector: 'orderAssigned.page.scss'
@@ -40,6 +42,7 @@ export class OrderAssignedPage {
                 private angularFire: AngularFire,
                 private authData: AuthData,
                 public locationTracker: LocationTrackerProvider,
+                private callNumber: CallNumber
                ) {
 
         this.locationTracker.startTracking();
@@ -121,6 +124,12 @@ export class OrderAssignedPage {
         }
 
         this.nav.push(MapPage, data);
+    }
+
+    goToPhone($event, order){
+        this.callNumber.callNumber(order.telf, true)
+            .then(() => console.log('Teléfono lanzado!'))
+            .catch(() => console.log('Error al lanzar el teléfono'));
     }
 
 }

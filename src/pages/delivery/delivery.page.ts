@@ -8,6 +8,7 @@ import moment from "moment";
 
 import { ScanPage, MapPage } from "../pages";
 
+import { CallNumber } from "@ionic-native/call-number";
 
 @Component({
     templateUrl: 'delivery.page.html',
@@ -31,7 +32,8 @@ export class DeliveryPage {
                 private loadingController: LoadingController,
                 private angularFire: AngularFire,
                 private authData: AuthData,
-                public alertControler: AlertController) {
+                public alertControler: AlertController,
+                private callNumber: CallNumber) {
 
 
     }
@@ -114,6 +116,12 @@ export class DeliveryPage {
         data[0] = {position: {lng: order.longitud, lat: order.latitud}, title: order.direccion};
         
         this.nav.push(MapPage, data);
+    }
+
+    goToPhone($event, order){
+        this.callNumber.callNumber(order.telf, true)
+            .then(() => console.log('Teléfono lanzado!'))
+            .catch(() => console.log('Error al lanzar el teléfono'));
     }
 
 }

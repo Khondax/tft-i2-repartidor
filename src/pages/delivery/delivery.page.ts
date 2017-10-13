@@ -110,7 +110,10 @@ export class DeliveryPage {
     }
 
     goToMap($event, order){
-        this.nav.push(MapPage, order);
+        var data = []
+        data[0] = {position: {lng: order.longitud, lat: order.latitud}, title: order.direccion};
+        
+        this.nav.push(MapPage, data);
     }
 
 }

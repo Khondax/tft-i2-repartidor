@@ -13,8 +13,6 @@ import { ScanPage, MapPage } from "../pages";
 
 import { LocationTrackerProvider } from '../../providers/location-tracker/location-tracker';
 
-import { GoogleMaps, GoogleMap, GoogleMapOptions, GoogleMapsEvent, CameraPosition, MarkerOptions, Marker, MarkerCluster, LatLng } from "@ionic-native/google-maps";
-
 @Component({
     templateUrl: 'orderAssigned.page.html',
     selector: 'orderAssigned.page.scss'
@@ -23,7 +21,7 @@ import { GoogleMaps, GoogleMap, GoogleMapOptions, GoogleMapsEvent, CameraPositio
 export class OrderAssignedPage {
         
     deliverer: any;
-    deliveryMan: any;
+    deliveryMan: any = {};
 
     delivererData: any;
     private position: any;
@@ -34,7 +32,6 @@ export class OrderAssignedPage {
 
     allOrders = [];
 
-    map1: GoogleMap;
     mapElement: HTMLElement;
 
     constructor(private nav: NavController,
@@ -43,7 +40,6 @@ export class OrderAssignedPage {
                 private angularFire: AngularFire,
                 private authData: AuthData,
                 public locationTracker: LocationTrackerProvider,
-                private googleMaps: GoogleMaps
                ) {
 
         this.locationTracker.startTracking();
@@ -85,8 +81,6 @@ export class OrderAssignedPage {
                 this.allOrders = _.chain(data)
                                  .filter(a => (a.estado === "Asignado" || a.estado === "En reparto" || a.estado === "Siguiente en entrega") && a.idRepartidor === this.deliverer.$key)
                                  .value();
-
-                //this.loadMap();
             
                 loader.dismiss();
             });
@@ -107,73 +101,26 @@ export class OrderAssignedPage {
         
     }
 
-    loadMap(){
-        this.mapElement = document.getElementById('map1');
-        
-        let mapOptions: GoogleMapOptions = {
-            camera: {
-                target: {
-                    lat: 27.9422467,
-                    lng: -15.598526,
-                },
-                zoom: 9,
-                tilt: 10
-            }
-        };
-
-        this.map1 = this.googleMaps.create(this.mapElement, mapOptions);
-
-
-         this.map1.one(GoogleMapsEvent.MAP_READY).then(() => {
-            console.log('Mapa listo!');
-
-             this.map1.addMarkerCluster({
-                boundsDraw: true,
-                markers: this.addMarkers(),
-                icons: [
-                    {min: 2, max: 5, url: 'assets/marks/m1.png', anchor: {x: 16, y: 16}},
-                    {min: 5, max: 10, url: 'assets/marks/m2.png', anchor: {x: 16, y: 16}},
-                    {min: 10, max: 20, url: 'assets/marks/m3.png', anchor: {x: 24, y: 24}},
-                ]
-            });
-    
-        });
-    
-    }
-
-    addMarkers(){
-        
-        var data = [];
-
-        for(var i=0; i < this.allOrders.length; i++){
-            data[i]= {position: {lng: this.allOrders[i].longitud, lat: this.allOrders[i].latitud}, title: this.allOrders[i].direccion};
-        }
-
-        return data;
-    }
-
-    ionViewWillUnload(){
-        this.locationTracker.stopTracking();
-    }
-
     goToScan($event, order){
         this.nav.push(ScanPage, {data: order});
     }
 
     goToMap($event, order){
-        this.nav.push(MapPage, order);
-    }
 
-     getCorrectColor(order){
-        switch (order.estado) {
-            case "Asignado":
-                return '../../assets/marker-icons/marker_blue.png';
-            case "En reparto":
-                return '../../assets/marker-icons/marker_green.png';
-            case "Siguiente en entrega":
-                return '../../assets/marker-icons/marker_red.png';
-        }
+        var data = []
+        data[0] = {position: {lng: order.longitud, lat: order.latitud}, title: order.direccion};
+        
+        this.nav.push(MapPage, data);
     }
     
+    goToCluster(){
+        var data = [];
+        
+        for(var i=0; i < this.allOrders.length; i++){
+            data[i]= {position: {lng: this.allOrders[i].longitud, lat: this.allOrders[i].latitud}, title: this.allOrders[i].direccion};
+        }
+
+        this.nav.push(MapPage, data);
+    }
 
 }

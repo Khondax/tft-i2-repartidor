@@ -15,6 +15,8 @@ import { LocationTrackerProvider } from '../../providers/location-tracker/locati
 
 import { CallNumber } from "@ionic-native/call-number";
 
+import { LocalNotifications } from '@ionic-native/local-notifications';
+
 @Component({
     templateUrl: 'orderAssigned.page.html',
     selector: 'orderAssigned.page.scss'
@@ -42,7 +44,8 @@ export class OrderAssignedPage {
                 private angularFire: AngularFire,
                 private authData: AuthData,
                 public locationTracker: LocationTrackerProvider,
-                private callNumber: CallNumber
+                private callNumber: CallNumber,
+                private localNotifications: LocalNotifications
                ) {
 
         this.locationTracker.startTracking();
@@ -68,6 +71,12 @@ export class OrderAssignedPage {
         
         loader.present().then(() => {
             this.angularFire.database.list('/pedidos').subscribe(data => {
+
+                this.localNotifications.schedule({
+                    id: 1,
+                    text: 'Nuevo pedido añadido',
+                });
+
                 this.ordersData = _.chain(data)
                                   .filter(o => o.estado === "Asignado" && o.idRepartidor === this.deliverer.$key)
                                   .groupBy('codigoPostal')

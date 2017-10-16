@@ -1,5 +1,5 @@
 <ion-header>
-    <ion-navbar>
+    <ion-navbar color = "primary">
         <button ion-button menuToggle>
             <ion-icon name="menu"></ion-icon>
         </button>
@@ -10,7 +10,7 @@
 <ion-content class="delivery-page">
 
     <ion-grid>
-        <ion-row >
+        <ion-row>
             <ng-container *ngFor="let deliverers of deliveryOrders">
                 <ion-col col-sm-6 col-md-6 col-lg-4 col-xl-3 *ngIf="deliverers.length != 0">
 

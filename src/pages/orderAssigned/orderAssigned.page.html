@@ -1,5 +1,5 @@
 <ion-header>
-    <ion-navbar>
+    <ion-navbar color = "primary">
         <button ion-button menuToggle>
             <ion-icon name="menu"></ion-icon>
         </button>
@@ -40,6 +40,7 @@
                                     <ion-row>
                                         <ion-col col-10>
                                             <h1><ion-icon *ngIf="order.urgente" name="alert"></ion-icon> {{order.idPaquete}}</h1>
+                                            <h2>Nombre: {{order.destinatario}}</h2>
                                             <h2>Teléfono: {{order.telf}}</h2>
                                             <h3>Dirección: {{order.direccion}}</h3>
                                             <h4>Peso: {{order.peso}}</h4>

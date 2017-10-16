@@ -15,9 +15,10 @@
 // for the .md, .ios, or .wp mode classes. The mode class is
 // automatically applied to the <body> element in the app.
 
-#toolbar{
-    background-image: url('../../assets/images/background.jpg');
+ #toolbar{
+    background-image: url('../assets/images/background.jpg');
     height: 150px;
+    width: 100%;
 }
 
 .logo{
@@ -30,4 +31,8 @@
 #nombre{
     margin-left: 10px;
     color: white;
+}
+
+#close{
+    margin-top: 105%;
 }

@@ -9,4 +9,6 @@ TAREAS PENDIENTES
 
 - Añadir notificaciones cada vez que sea asignado un nuevo pedido al repartidor.
 
+- Posibilidad de recargar la ventana de pedidos asignados.
+
 ~ MEJORAS DE ESTILO ~

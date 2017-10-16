@@ -7,6 +7,4 @@ TAREAS PENDIENTES
 
 - Actualizar posición Lat-Lng (geolocalización) - (¿¿Conseguir que funcione con la app en segundo plano??) - En teoría funciona
 
-- Añadir notificaciones cada vez que sea asignado un nuevo pedido al repartidor.
-
 ~ MEJORAS DE ESTILO ~

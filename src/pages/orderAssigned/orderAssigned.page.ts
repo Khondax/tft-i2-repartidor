@@ -141,4 +141,9 @@ export class OrderAssignedPage {
             .catch(() => console.log('Error al lanzar el teléfono'));
     }
 
+    refresh(refresher){
+        refresher.complete();
+        this.ionViewDidLoad();
+    }
+
 }

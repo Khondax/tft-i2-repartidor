@@ -1,5 +1,5 @@
 <ion-menu [content]="content">
-    <ion-header id="toolbar">
+    <ion-header #toolbar id="toolbar">
         <img class="logo" src={{deliverer.imagen}}>
         <p id="nombre">{{deliverer.nombre}}</p>
     </ion-header>
@@ -10,9 +10,13 @@
                 <ion-icon name="home"></ion-icon>
                 Portada
             </button>
-            <button menuClose ion-item (click)="logout()">
-                <ion-icon name="close-circle"></ion-icon>
-                Cerrar Sesión
+            <button menuClose ion-item (click)="goToCluster()">
+                <ion-icon name="map"></ion-icon>
+                Mapa de pedidos pendientes
+            </button>
+            <button id="close" menuClose ion-item (click)="logout()">
+                <ion-icon name="power"></ion-icon>
+                <strong>Cerrar sesión</strong>
             </button>
         </ion-list>
     </ion-content>

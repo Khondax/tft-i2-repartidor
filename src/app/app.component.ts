@@ -5,7 +5,7 @@ import { SplashScreen } from '@ionic-native/splash-screen';
 
 import { AuthData } from '../providers/auth-data';
 
-import { HomePage, LoginPage } from "../pages/pages";
+import { HomePage, LoginPage, MapPage } from "../pages/pages";
 
 import { AngularFire } from 'angularfire2';
 
@@ -25,6 +25,7 @@ export class MyApp {
 	rootPage: any;
 	deliverer = [];
 	deliveryMan: any = {};
+	mapClusterKey: any;
 
 	pages: Array<{title: string, component: any}>;
 
@@ -44,7 +45,7 @@ export class MyApp {
 									  .filter(o => o.UID === this.authData.getCurrentUid())
 									  .value();
 					this.deliverer = this.deliveryMan[0];
-					console.log(this.deliverer); 
+					this.mapClusterKey = this.deliveryMan[0];
 					userObserver.unsubscribe(); 
 			  });
 				authObserver.unsubscribe();
@@ -77,9 +78,29 @@ export class MyApp {
         if(view.component.name!="HomePage"){
           this.nav.setRoot(HomePage);
         }
-        
-    }
+	}
+	
+	goToCluster(){
+		var locations = [];
+		var allOrders = [];
 
+		const ordersObserver = this.angularFire.database.list('/pedidos').subscribe(data => {
+			allOrders = _.chain(data)
+						.filter(a => (a.estado === "Asignado" || a.estado === "En reparto" || a.estado === "Siguiente en entrega") && a.idRepartidor === this.mapClusterKey.$key)
+						.value();
+
+			ordersObserver.unsubscribe();
+
+			for(var i=0; i < allOrders.length; i++){
+                locations[i]= {position: {lng: allOrders[i].longitud, lat: allOrders[i].latitud}, title: allOrders[i].direccion};
+            }
+
+            this.nav.push(MapPage, locations);
+
+		});
+
+
+	}
 
 	logout(){
 

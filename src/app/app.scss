@@ -14,3 +14,20 @@
 // To declare rules for a specific mode, create a child rule
 // for the .md, .ios, or .wp mode classes. The mode class is
 // automatically applied to the <body> element in the app.
+
+#toolbar{
+    background-image: url('../../assets/images/background.jpg');
+    height: 150px;
+}
+
+.logo{
+    border-radius: 50%;
+    height: 65px;
+    margin-top: 20px;
+    margin-left: 10px;
+}
+
+#nombre{
+    margin-left: 10px;
+    color: white;
+}

@@ -11,14 +11,20 @@ import { AngularFire } from 'angularfire2';
 
 import { LocationTrackerProvider } from '../providers/location-tracker/location-tracker';
 
+import _ from 'lodash';
+
 @Component({
-	templateUrl: 'app.html'
+	templateUrl: 'app.html',
+	selector: 'app.scss'
 })
+
 export class MyApp {
 	@ViewChild(Nav) nav: Nav;
 
 	//rootPage: any = HomePage;
 	rootPage: any;
+	deliverer = [];
+	deliveryMan: any = {};
 
 	pages: Array<{title: string, component: any}>;
 
@@ -33,10 +39,17 @@ export class MyApp {
 		const authObserver = angularFire.auth.subscribe( user => {
 			if (user) {
 				this.rootPage = HomePage;
+				const userObserver = this.angularFire.database.list('/repartidores').subscribe(data => {
+					this.deliveryMan = _.chain(data)
+									  .filter(o => o.UID === this.authData.getCurrentUid())
+									  .value();
+					this.deliverer = this.deliveryMan[0];
+					console.log(this.deliverer); 
+					userObserver.unsubscribe(); 
+			  });
 				authObserver.unsubscribe();
 			} else {
 				this.rootPage = LoginPage;
-				authObserver.unsubscribe();
 			}
 		});
 
@@ -58,6 +71,15 @@ export class MyApp {
 	// we wouldn't want the back button to show in this scenario
 		this.nav.setRoot(page.component);
 	}
+
+	goHome(){
+        let view = this.nav.getActive();
+        if(view.component.name!="HomePage"){
+          this.nav.setRoot(HomePage);
+        }
+        
+    }
+
 
 	logout(){
 

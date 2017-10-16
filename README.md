@@ -7,8 +7,6 @@ TAREAS PENDIENTES
 
 - Actualizar posición Lat-Lng (geolocalización) - (¿¿Conseguir que funcione con la app en segundo plano??) - En teoría funciona
 
-- En el panel lateral poner la foto del repartidor como icono.
-
 - Añadir notificaciones cada vez que sea asignado un nuevo pedido al repartidor.
 
 ~ MEJORAS DE ESTILO ~

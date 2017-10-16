@@ -25,8 +25,6 @@ import { GoogleMaps } from "@ionic-native/google-maps";
 
 import { CallNumber } from "@ionic-native/call-number";
 
-import { LocalNotifications } from '@ionic-native/local-notifications';
-
 export const firebaseConfig = {
     apiKey: "AIzaSyDka8ZQF6bzjPhVJMZFAf7d0BBztxP_spg",
     authDomain: "app-repartos-tft.firebaseapp.com",
@@ -78,7 +76,6 @@ const myFirebaseAuthConfig = {
     BackgroundGeolocation,
     GoogleMaps,
     CallNumber,
-    LocalNotifications,
     BarcodeScanner,
     StatusBar,
     SplashScreen,

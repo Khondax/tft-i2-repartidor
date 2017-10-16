@@ -15,8 +15,6 @@ import { LocationTrackerProvider } from '../../providers/location-tracker/locati
 
 import { CallNumber } from "@ionic-native/call-number";
 
-import { LocalNotifications } from '@ionic-native/local-notifications';
-
 @Component({
     templateUrl: 'orderAssigned.page.html',
     selector: 'orderAssigned.page.scss'
@@ -44,9 +42,7 @@ export class OrderAssignedPage {
                 private angularFire: AngularFire,
                 private authData: AuthData,
                 public locationTracker: LocationTrackerProvider,
-                private callNumber: CallNumber,
-                private localNotifications: LocalNotifications
-               ) {
+                private callNumber: CallNumber) {
 
         this.locationTracker.startTracking();
 
@@ -72,11 +68,6 @@ export class OrderAssignedPage {
         loader.present().then(() => {
             this.angularFire.database.list('/pedidos').subscribe(data => {
 
-                this.localNotifications.schedule({
-                    id: 1,
-                    text: 'Nuevo pedido añadido',
-                });
-
                 this.ordersData = _.chain(data)
                                   .filter(o => o.estado === "Asignado" && o.idRepartidor === this.deliverer.$key)
                                   .groupBy('codigoPostal')
@@ -100,14 +91,11 @@ export class OrderAssignedPage {
         });
 
         this.position = this.geolocation.watchPosition({ maximumAge: 10000, enableHighAccuracy: true }).subscribe((data) => {
-
             this.delivererData.update(this.deliverer.$key, {latitud: data.coords.latitude, longitud: data.coords.longitude, horaCapturaGPS: moment().format()});
-
         });
 
-         this.position = this.locationTracker.horaCaptura.subscribe((data) => {
+        this.position = this.locationTracker.horaCaptura.subscribe((data) => {
             console.log("DATOS: " + data);
-
             this.delivererData.update(this.deliverer.$key, {latitud: this.locationTracker.lat, longitud: this.locationTracker.lng, horaCapturaGPS: this.locationTracker.horaCaptura});
         });
         

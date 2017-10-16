@@ -6,8 +6,8 @@
 
 <ion-content padding>
 
-    <button ion-button full color="primary" (click)="scan()">Escanear</button>
-    <button ion-button full color="secondary" (click)="reset()">Borrar</button>
+    <button ion-button full color="secondary" (click)="scan()">Escanear</button>
+    <button ion-button full color="danger" (click)="reset()">Borrar</button>
     
     <div *ngIf="results">
         <button *ngIf="order.estado=='Asignado'" ion-button full (click)="save(0)">Añadir paquete</button>

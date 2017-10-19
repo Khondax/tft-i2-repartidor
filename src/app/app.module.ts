@@ -4,7 +4,7 @@ import { IonicApp, IonicErrorHandler, IonicModule } from 'ionic-angular';
 
 import { MyApp } from './app.component';
 
-import { LoginPage, HomePage, OrderAssignedPage, DeliveryPage, ScanPage, MapPage, DrawpadPage } from "../pages/pages";
+import { LoginPage, HomePage, OrderAssignedPage, DeliveryPage, ScanPage, MapPage, DrawpadPage, RegistryPage } from "../pages/pages";
 
 import { AuthData } from '../providers/auth-data';
 
@@ -48,7 +48,8 @@ const myFirebaseAuthConfig = {
     DeliveryPage,
     ScanPage,
     MapPage,
-    DrawpadPage
+    DrawpadPage,
+    RegistryPage
   ],
   imports: [
     BrowserModule,
@@ -68,7 +69,8 @@ const myFirebaseAuthConfig = {
     DeliveryPage,
     ScanPage,
     MapPage,
-    DrawpadPage
+    DrawpadPage,
+    RegistryPage
   ],
   providers: [
     Geolocation,

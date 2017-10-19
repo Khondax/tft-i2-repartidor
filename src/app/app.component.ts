@@ -5,7 +5,7 @@ import { SplashScreen } from '@ionic-native/splash-screen';
 
 import { AuthData } from '../providers/auth-data';
 
-import { HomePage, LoginPage, MapPage } from "../pages/pages";
+import { HomePage, LoginPage, MapPage, RegistryPage } from "../pages/pages";
 
 import { AngularFire } from 'angularfire2';
 
@@ -98,9 +98,11 @@ export class MyApp {
             this.nav.push(MapPage, locations);
 
 		});
-
-
 	}
+
+	goToRegistry(){
+        this.nav.push(RegistryPage);
+    }
 
 	logout(){
 

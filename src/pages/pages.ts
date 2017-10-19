@@ -5,3 +5,4 @@ export * from './delivery/delivery.page';
 export * from './scan/scan.page';
 export * from './map/map.page';
 export * from './drawpad/drawpad.page';
+export * from './registry/registry.page';

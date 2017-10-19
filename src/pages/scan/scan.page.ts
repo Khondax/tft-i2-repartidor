@@ -80,13 +80,35 @@ import { DrawpadPage, HomePage } from "../pages";
             }, 300);
 
         }
-
-
     }
 
     finishDeliver(){
 
-        this.orderData.update(this.order.$key, {fechaEntrega: moment().format(), estado: "Entregado", firma: this.signatureImage});
+        let prompt = this.alertController.create({
+            title: 'Nueva incidencia',
+            message: "¿Desea añadir una incidencia?",
+            inputs: [{
+                type: 'text',
+                name: 'incidencia'
+            }],
+            buttons: [
+                {
+                    text: 'Descartar',
+                    handler: data =>{
+                        this.orderData.update(this.order.$key, {fechaEntrega: moment().format(), estado: "Entregado", firma: this.signatureImage});
+                    }
+                },
+                {
+                    text: 'Añadir',
+                    handler: data => {
+                        this.orderData.update(this.order.$key, {fechaEntrega: moment().format(), estado: "Entregado con incidencia", firma: this.signatureImage, observaciones: data.incidencia});
+
+                    }
+                }
+            ]
+        });
+
+        prompt.present();        
 
         let toast = this.toastController.create({
             message: "Pedido entregado",

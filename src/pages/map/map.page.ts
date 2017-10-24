@@ -57,8 +57,8 @@ export class MapPage {
                     icon: 'red',
                     animation: 'DROP',
                     position: {
-                    lat: this.data[0].position.lat,
-                    lng: this.data[0].position.lng
+                        lat: this.data[0].position.lat,
+                        lng: this.data[0].position.lng
                     }
                 });
         

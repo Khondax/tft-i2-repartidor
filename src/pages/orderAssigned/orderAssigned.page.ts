@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { NavController, LoadingController } from 'ionic-angular';
 
 import _ from 'lodash';
-import { AngularFire, FirebaseListObservable } from "angularfire2";
+import { AngularFire } from "angularfire2";
 import moment from "moment";
 
 import { Geolocation } from "@ionic-native/geolocation";

@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NavController, LoadingController, AlertController } from 'ionic-angular';
+import { NavController, LoadingController } from 'ionic-angular';
 
 import { AngularFire } from "angularfire2";
 import { AuthData } from '../../providers/auth-data';
@@ -21,7 +21,6 @@ import _ from 'lodash';
     deliveryMan: any = {};
 
     constructor(public nav: NavController,
-                public alertController: AlertController,
                 public angularFire: AngularFire,
                 private authData: AuthData,
                 public loadingController: LoadingController){

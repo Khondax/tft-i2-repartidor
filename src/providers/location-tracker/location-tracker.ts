@@ -6,8 +6,6 @@ import { Observable } from "rxjs/Observable";
 
 import { BackgroundGeolocation, BackgroundGeolocationConfig } from "@ionic-native/background-geolocation";
 
-import { Geolocation, Geoposition } from "@ionic-native/geolocation";
-
 import moment from "moment";
 
 /*
@@ -27,8 +25,7 @@ export class LocationTrackerProvider {
     public horaCapturaObserver: any;
 
     constructor(public zone: NgZone,
-                public backgroundGeolocation: BackgroundGeolocation,
-                public geolocation: Geolocation) {
+                public backgroundGeolocation: BackgroundGeolocation) {
 
         this.horaCaptura = Observable.create(observer => {
             this.horaCapturaObserver = observer;
@@ -67,27 +64,6 @@ export class LocationTrackerProvider {
         // Turn ON the background-geolocation system.
         this.backgroundGeolocation.start();
         
-        
-        // Foreground Tracking
-        
-/*         let options = {
-            frequency: 6000,
-            enableHighAccuracy: true
-        };
-        
-        this.watch = this.geolocation.watchPosition(options).subscribe((data) => {
-        
-            console.log(data);
-            
-            // Run update inside of Angular's zone
-            this.zone.run(() => {
-                this.lat = data.coords.latitude;
-                this.lng = data.coords.longitude;
-                this.horaCaptura = moment().format();
-                this.horaCapturaObserver.next(true);
-            });
-       
-        }); */
     }
 
     stopTracking(){

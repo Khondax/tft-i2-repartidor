@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NavController, LoadingController, AlertController, ToastController, NavParams, ModalController } from 'ionic-angular';
+import { NavController, AlertController, ToastController, NavParams, ModalController } from 'ionic-angular';
 
 import { BarcodeScanner } from "@ionic-native/barcode-scanner";
 import { AngularFire, FirebaseListObservable } from "angularfire2";

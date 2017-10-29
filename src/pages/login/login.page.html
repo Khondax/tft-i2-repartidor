@@ -1,31 +1,25 @@
 <ion-content padding class="login-page">
 
-  <img src="assets/images/deliverer-icon.png">
-  
-  <form [formGroup]="loginForm" (submit)="loginUser()" novalidate>
+    <img src="assets/images/deliverer-icon.png">
+
+    <form [formGroup]="loginForm" (submit)="loginUser()" novalidate>
 
     <ion-item>
-      <ion-input formControlName="email" type="email"
-        placeholder="Correo electrónico"
-        [class.invalid]="!loginForm.controls.email.valid &&
-          loginForm.controls.email.dirty"
-        [class.valid]="loginForm.controls.email.valid &&
-          loginForm.controls.email.dirty"></ion-input>
+        <ion-input formControlName="email" type="email" placeholder="Correo electrónico" 
+        [class.invalid]="!loginForm.controls.email.valid && loginForm.controls.email.dirty"
+        [class.valid]="loginForm.controls.email.valid && loginForm.controls.email.dirty"></ion-input>
     </ion-item>
 
     <ion-item> 
-      <ion-input formControlName="password" type="password"
-        placeholder="Contraseña"
-        [class.invalid]="!loginForm.controls.password.valid &&
-          loginForm.controls.password.dirty"
-        [class.valid]="loginForm.controls.password.valid &&
-          loginForm.controls.password.dirty"></ion-input>
+        <ion-input formControlName="password" type="password" placeholder="Contraseña"
+        [class.invalid]="!loginForm.controls.password.valid && loginForm.controls.password.dirty"
+        [class.valid]="loginForm.controls.password.valid && loginForm.controls.password.dirty"></ion-input>
     </ion-item>
 
     <button ion-button class="login-button" type="submit">
-      Acceder
+        Acceder
     </button>
 
-  </form>
+    </form>
 
 </ion-content>

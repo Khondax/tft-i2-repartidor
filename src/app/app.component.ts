@@ -1,5 +1,5 @@
 import { Component, ViewChild } from '@angular/core';
-import { Nav, Platform, AlertController } from 'ionic-angular';
+import { Nav, Platform } from 'ionic-angular';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 
@@ -21,7 +21,6 @@ import _ from 'lodash';
 export class MyApp {
 	@ViewChild(Nav) nav: Nav;
 
-	//rootPage: any = HomePage;
 	rootPage: any;
 	deliverer = [];
 	deliveryMan: any = {};
@@ -34,7 +33,6 @@ export class MyApp {
 				public splashScreen: SplashScreen, 
 				public angularFire: AngularFire, 
 				public authData: AuthData,
-				public alertCtrl: AlertController,
 				public locationTracker: LocationTrackerProvider) {
 
 		const authObserver = angularFire.auth.subscribe( user => {
@@ -47,7 +45,7 @@ export class MyApp {
 					this.deliverer = this.deliveryMan[0];
 					this.mapClusterKey = this.deliveryMan[0];
 					userObserver.unsubscribe(); 
-			  });
+			  	});
 				authObserver.unsubscribe();
 			} else {
 				this.rootPage = LoginPage;
@@ -105,25 +103,8 @@ export class MyApp {
     }
 
 	logout(){
-
-	let alert = this.alertCtrl.create({
-				message: "¿Quieres cerrar sesión?",
-				buttons: [
-					{
-						text: "No"
-					},
-					{
-						text: 'Sí',
-						handler: data =>{
-							this.authData.logoutUser();
-							this.nav.push(LoginPage);
-							this.locationTracker.stopTracking();
-						}
-					}
-				]
-			});
-
-		alert.present();
-
+		this.authData.logoutUser();
+		this.nav.push(LoginPage);
+		this.locationTracker.stopTracking();
 	}
 }

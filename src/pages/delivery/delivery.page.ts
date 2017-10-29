@@ -1,10 +1,9 @@
 import { Component } from '@angular/core';
-import { NavController, NavParams, LoadingController, AlertController } from 'ionic-angular';
+import { NavController, LoadingController, AlertController } from 'ionic-angular';
 
 import _ from 'lodash';
-import { AngularFire, FirebaseListObservable } from "angularfire2";
+import { AngularFire } from "angularfire2";
 import { AuthData } from '../../providers/auth-data';
-import moment from "moment";
 
 import { ScanPage, MapPage } from "../pages";
 
@@ -28,13 +27,11 @@ export class DeliveryPage {
 
 
     constructor(private nav: NavController,
-                private navParams: NavParams,
                 private loadingController: LoadingController,
                 private angularFire: AngularFire,
                 private authData: AuthData,
                 public alertControler: AlertController,
                 private callNumber: CallNumber) {
-
 
     }
 
@@ -83,6 +80,7 @@ export class DeliveryPage {
                 nextDir = _.chain(data)
                                   .filter(o => o.estado === "Siguiente en entrega")
                                   .value();
+                                  
                 temp = nextDir;
                 console.log(temp);
                 if(temp.length == 0 || temp[0].direccion === order.direccion && order.estado === "En reparto"){

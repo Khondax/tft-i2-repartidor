@@ -1,9 +1,7 @@
-import { Component, ViewChild, ElementRef } from '@angular/core';
-import { NavController, NavParams, LoadingController, Platform } from 'ionic-angular';
+import { Component } from '@angular/core';
+import { NavController, NavParams } from 'ionic-angular';
 
-import { GoogleMaps, GoogleMap, GoogleMapOptions, GoogleMapsEvent, CameraPosition, MarkerOptions, Marker, MarkerCluster } from "@ionic-native/google-maps";
-
-declare var window: any;
+import { GoogleMaps, GoogleMap, GoogleMapOptions, GoogleMapsEvent } from "@ionic-native/google-maps";
 
 @Component({
     templateUrl: 'map.page.html',
@@ -18,9 +16,7 @@ export class MapPage {
 
     constructor(private nav: NavController,
                 private navParams: NavParams,
-                private loadingController: LoadingController,
                 private googleMaps: GoogleMaps,
-                private platform: Platform
                ) {
 
         this.data = this.navParams.data;
@@ -36,7 +32,7 @@ export class MapPage {
         this.mapElement = document.getElementById('map2');
 
         if (this.data.length <= 1){
-            var mapOptions: GoogleMapOptions = {
+            var mapOptions1: GoogleMapOptions = {
                 camera: {
                     target: {
                       lat: this.data[0].position.lat,
@@ -47,7 +43,7 @@ export class MapPage {
                   }
             };
 
-            this.map2 = this.googleMaps.create(this.mapElement, mapOptions);
+            this.map2 = this.googleMaps.create(this.mapElement, mapOptions1);
             
             this.map2.one(GoogleMapsEvent.MAP_READY).then(() => {
                 console.log('Mapa listo!');
@@ -65,7 +61,7 @@ export class MapPage {
             });
 
         } else {
-            var mapOptions: GoogleMapOptions = {
+            var mapOptions2: GoogleMapOptions = {
                 camera: {
                     target: {
                       lat: 27.9422467,
@@ -76,7 +72,7 @@ export class MapPage {
                   }
             };
 
-            this.map2 = this.googleMaps.create(this.mapElement, mapOptions);
+            this.map2 = this.googleMaps.create(this.mapElement, mapOptions2);
             
             this.map2.one(GoogleMapsEvent.MAP_READY).then(() => {
                 console.log('Mapa listo!');

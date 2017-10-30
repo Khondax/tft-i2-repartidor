@@ -6,8 +6,19 @@
 
 <ion-content padding>
 
-    <button ion-button full color="secondary" (click)="scan()">Escanear</button>
-    <button ion-button full color="danger" (click)="reset()">Borrar</button>
+    <ion-grid>
+        <ion-row>
+            <ion-col col-4>
+                <button ion-button full color="secondary" (click)="scanManual()">Escaneo manual</button>
+            </ion-col>
+            <ion-col col-4>
+                <button ion-button full color="light" (click)="reset()">Limpiar</button>
+            </ion-col>
+            <ion-col col-4>
+                <button ion-button full color="success" (click)="scan()">Escanear</button>
+            </ion-col>
+        </ion-row>
+    </ion-grid>
     
     <div *ngIf="results">
         <button *ngIf="order.estado=='Asignado'" ion-button full (click)="save(0)">Añadir paquete</button>

@@ -55,6 +55,38 @@ import { DrawpadPage, HomePage } from "../pages";
         });
     }
 
+    scanManual(){
+        let prompt = this.alertController.create({
+            title: 'Código manual',
+            inputs: [{
+                type: 'text',
+                name: 'cod',
+                placeholder: 'Introduzca aquí el código del pedido'
+            }],
+            buttons: [
+                {
+                    text: 'Descartar',
+                },
+                {
+                    text: 'Añadir',
+                    handler: data => {
+                        if (data.cod == this.order.idPaquete){
+                            this.results = data.cod;
+                        } else {
+                            let toast = this.toastController.create({
+                                message: "El paquete escaneado no coincide con el que ha seleccionado",
+                                duration: 4000,
+                                position: 'middle'
+                            });
+            
+                            toast.present();
+                        }
+                    }
+                }
+            ]
+        });
+    }
+
     reset(){
         this.results = null;
     }

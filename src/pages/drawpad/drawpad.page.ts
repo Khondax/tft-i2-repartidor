@@ -1,5 +1,7 @@
 import { Component, ViewChild } from '@angular/core';
-import { NavController, NavParams } from 'ionic-angular';
+import { NavController, NavParams, AlertController } from 'ionic-angular';
+
+import { AngularFire, FirebaseListObservable } from "angularfire2";
 
 import { SignaturePad } from "angular2-signaturepad/signature-pad";
 
@@ -22,11 +24,43 @@ export class DrawpadPage {
 
     private signatureImage: string;
     private order: any;
+    orderData: FirebaseListObservable<any>;    
 
-    constructor(private nav: NavController, private navParams: NavParams) {
+    constructor(private nav: NavController,
+                private navParams: NavParams, 
+                private alertController: AlertController,
+                private angularFire: AngularFire) {
 
         this.order = navParams.data;
+        this.orderData = angularFire.database.list('/pedidos');
     }
+
+    incidencia(){
+        let prompt = this.alertController.create({
+            title: 'Nueva incidencia',
+            message: "¿Desea añadir una incidencia?",
+            inputs: [{
+                type: 'text',
+                name: 'incidencia',
+                placeholder: 'Introduzca aquí sus observaciones'
+            }],
+            buttons: [
+                {
+                    text: 'Descartar',
+                },
+                {
+                    text: 'Añadir',
+                    handler: data => {
+                        this.orderData.update(this.order.$key, {estado: "Incidencia registrada", observaciones: data.incidencia});
+
+                    }
+                }
+            ]
+        });
+
+        prompt.present();        
+    }
+
 
     canvasResize() {
         let canvas = document.querySelector('canvas');

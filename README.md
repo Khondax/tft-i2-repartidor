@@ -4,5 +4,3 @@ Proyecto en ionic2 para el trabajo final del Grado en Ingeniería Informática -
 TAREAS PENDIENTES
 
 - Opcion para introducir el código del pedido a mano (por si el escaner falla)
-
-- Mostrar las observaciones antes de firmar

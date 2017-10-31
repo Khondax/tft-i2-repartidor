@@ -85,6 +85,8 @@ import { DrawpadPage, HomePage } from "../pages";
                 }
             ]
         });
+
+        prompt.present();
     }
 
     reset(){
